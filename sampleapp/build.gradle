@@ -1,12 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "23.0.3"
-
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
-        applicationId "com.swarmnyc.android.mvvmlib"
-        minSdkVersion 7
+        applicationId 'com.swarmnyc.android.mvvmlib.sampleapp'
+        minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -16,6 +19,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 

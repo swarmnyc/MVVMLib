@@ -1,4 +1,4 @@
-package com.swarmnyc.android.mvvmlib;
+package com.swarmnyc.android.mvvmlib.sampleapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
