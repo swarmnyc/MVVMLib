@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.swarmnyc.android.mvvmlib.sampleapp.viewmodel.ThirdViewModel"/>
+            type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.ThirdViewModel"/>
     </data>
 
     <LinearLayout

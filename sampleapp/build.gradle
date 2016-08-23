@@ -8,7 +8,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId 'com.swarmnyc.android.mvvmlib.sampleapp'
+        applicationId 'com.swarmnyc.mvvmlib.sampleapp'
         minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
