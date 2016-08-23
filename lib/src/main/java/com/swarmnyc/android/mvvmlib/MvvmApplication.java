@@ -16,17 +16,17 @@ public class MvvmApplication extends Application {
         buildNavigation(mvvmContext.getNavigationManager());
     }
 
-    public NavigationManager createNavigationManager() {
-        return new DefaultNavigationManager();
-    }
-
-    public void buildNavigation(NavigationManager manager) {
-
-    }
-
     @Override
     public void onTerminate() {
         mvvmContext.destroy();
         super.onTerminate();
+    }
+
+    protected NavigationManager createNavigationManager() {
+        return new DefaultNavigationManager();
+    }
+
+    protected void buildNavigation(NavigationManager manager) {
+
     }
 }

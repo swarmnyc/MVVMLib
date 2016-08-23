@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:mvvm="http://schemas.android.com/apk/res-auto"
-    >
+        xmlns:mvvm="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,14 +21,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Navigate To Second Activity by Adapter"
-            mvvm:navTo='@{"SecondActivity"}'/>
+            android:text="Activity Demo"
+            mvvm:navTo='@{"FirstActivity"}'/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Navigate To Third Activity by ViewModel"
-            android:onClick='@{()-> viewmodel.navToThirdActivity()}'/>
+            android:onClick='@{()-> viewmodel.navToFragmentActivity()}'
+            android:text="Fragment Demo"/>
     </LinearLayout>
 </layout>
 

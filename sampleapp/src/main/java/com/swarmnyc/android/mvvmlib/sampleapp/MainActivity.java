@@ -18,6 +18,4 @@ public class MainActivity extends MvvmAppCompatActivity<MainViewModel> {
     public void buildNavigation(NavigationManager manager) {
 
     }
-
-
 }

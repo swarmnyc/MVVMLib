@@ -1,6 +1,7 @@
 package com.swarmnyc.android.mvvmlib;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,8 +45,15 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
         viewDataBinding.setVariable(com.swarmnyc.android.mvvmlib.BR.viewmodel, viewModel);
     }
 
-    public T getViewModel() {
-        return viewModel;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = this.getIntent();
+        if (intent == null){
+            onModelBinding(viewModel, null);
+        }else {
+            onModelBinding(viewModel, intent.getBundleExtra(Keys.ARGS));
+        }
     }
 
     @Override
@@ -53,17 +61,39 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
         outState.putParcelable(Keys.VIEW_MODEL, viewModel);
     }
 
-    public abstract ViewDataBinding onCreateViewBinding();
-
     @Override
     protected void onDestroy() {
         mvvmContext.destroy();
         super.onDestroy();
     }
 
-    public NavigationManager createNavigationManager() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            Bundle args = data.getBundleExtra(Keys.ARGS);
+            if (args != null) {
+                onResult(requestCode, resultCode, args);
+            }
+        }
+    }
+
+    protected void onResult(int requestCode, int resultCode, Bundle data) {
+    }
+
+    public T getViewModel() {
+        return viewModel;
+    }
+
+    protected abstract ViewDataBinding onCreateViewBinding();
+
+    protected NavigationManager createNavigationManager() {
         return new DefaultNavigationManager();
     }
 
-    public abstract void buildNavigation(NavigationManager manager);
+    protected void onModelBinding(T viewModel, Bundle args) {
+    }
+
+    protected void buildNavigation(NavigationManager manager) {
+    }
 }

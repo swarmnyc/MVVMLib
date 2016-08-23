@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.swarmnyc.android.mvvmlib.MvvmContext;
 
+import java.util.Map;
+
 public interface NavigationManager {
     void setMvvmContext(MvvmContext mvvmContext);
 
@@ -15,5 +17,7 @@ public interface NavigationManager {
     void navigateTo(Context context, String path, Bundle args);
 
     void addNavigation(String path, NavigationHandler handler);
+
+    void linkTo(String url);
 }
 
