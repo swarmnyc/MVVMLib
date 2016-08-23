@@ -50,5 +50,11 @@
             android:layout_height="wrap_content"
             android:hint="No Data Passed"
             android:text="@{viewmodel.passedData}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close by Adapter"
+            mvvm:close='@{0}'/>
     </LinearLayout>
 </layout>

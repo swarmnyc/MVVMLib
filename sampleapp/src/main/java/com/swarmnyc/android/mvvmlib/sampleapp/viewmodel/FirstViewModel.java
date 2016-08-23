@@ -1,7 +1,9 @@
 package com.swarmnyc.android.mvvmlib.sampleapp.viewmodel;
 
+import android.os.Bundle;
 import android.os.Parcel;
 
+import com.swarmnyc.android.mvvmlib.Keys;
 import com.swarmnyc.android.mvvmlib.MvvmViewModel;
 import com.swarmnyc.android.mvvmlib.binding.BindableString;
 
@@ -23,9 +25,19 @@ public class FirstViewModel extends MvvmViewModel {
     }
 
     public void navToThirdActivity() {
-        getContext().getNavigationManager().navigateTo("ThirdActivity");
+        Bundle args = new Bundle();
+        args.putString("data", getDataToPass().get());
+        getContext().getNavigationManager().navigateTo("ThirdActivity", args);
     }
 
+    @Override
+    public void onResult(int requestCode, int resultCode, Bundle args) {
+        if (requestCode == 2) {
+            getPassedData().set(args.getString(Keys.PASS_VALUE));
+        } else if (requestCode == 3) {
+            getPassedData().set(args.getString("data"));
+        }
+    }
 
     @Override
     public int describeContents() {

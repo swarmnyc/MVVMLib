@@ -3,11 +3,8 @@ package com.swarmnyc.android.mvvmlib.navigation;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 
 import com.swarmnyc.android.mvvmlib.Keys;
-
-import java.util.Map;
 
 public class ActivityNavigationHandler implements NavigationHandler {
     private Class activity;
@@ -22,15 +19,19 @@ public class ActivityNavigationHandler implements NavigationHandler {
         this.requestCode = requestCode;
     }
 
-    public void setArgs(Intent intent) {}
+    public void setArgs(Bundle args) {
+    }
 
     public void navigate(Activity activity, Bundle args) {
         Intent intent = new Intent(activity, this.activity);
-        if (args != null) {
-            intent.putExtra(Keys.ARGS, args);
-        }
 
-        setArgs(intent);
+        if (args == null)
+            args = new Bundle();
+
+        setArgs(args);
+
+        intent.putExtra(Keys.ARGS, args);
+
         if (requestCode == null) {
             activity.startActivity(intent);
         } else {

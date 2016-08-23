@@ -3,15 +3,19 @@ package com.swarmnyc.android.mvvmlib.binding;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.databinding.tool.util.StringUtils;
+import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.Html;
 import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.swarmnyc.android.mvvmlib.MvvmContext;
 import com.swarmnyc.android.mvvmlib.R;
+import com.swarmnyc.android.mvvmlib.binding.image.ImageCropType;
 
 public class BindingUtils {
     @BindingConversion
@@ -86,5 +90,33 @@ public class BindingUtils {
                 MvvmContext.getContext(view).getNavigationManager().linkTo(url);
             }
         });
+    }
+
+    @BindingAdapter({"mvvm:image"})
+    public static void bindImage(final ImageView view, final String imageUrl) {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, ImageCropType.Center, 0);
+        }
+    }
+
+    @BindingAdapter({"mvvm:image", "mvvm:imageError"})
+    public static void bindImage(final ImageView view, final String imageUrl, @DrawableRes final int resId) {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, ImageCropType.Center, resId);
+        }
+    }
+
+    @BindingAdapter({"mvvm:image", "mvvm:imageCropType"})
+    public static void bindImage(final ImageView view, final String imageUrl, final ImageCropType type) {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, type, 0);
+        }
+    }
+
+    @BindingAdapter({"mvvm:image", "mvvm:imageCropType", "mvvm:imageError"})
+    public static void bindImage(final ImageView view, final String imageUrl, final ImageCropType type, @DrawableRes final int resId) {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, type, resId);
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.swarmnyc.android.mvvmlib.binding.image.ImageBinder;
 import com.swarmnyc.android.mvvmlib.navigation.NavigationManager;
 
 import java.security.InvalidParameterException;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 public class MvvmContext {
     private static Class navigationManagerClass;
     private static HashMap<Context, MvvmContext> contextHashMap = new HashMap<>();
+    private ImageBinder imageBinder;
 
     public static <T extends NavigationManager> void setNavigationManager(Class<T> navigationManagerClass) {
         MvvmContext.navigationManagerClass = navigationManagerClass;
@@ -83,7 +85,7 @@ public class MvvmContext {
             } else {
                 Intent intent = new Intent();
                 intent.putExtra(Keys.ARGS, args);
-                activity.setResult(result);
+                activity.setResult(result, intent);
             }
             activity.finish();
         }
@@ -93,5 +95,9 @@ public class MvvmContext {
         if (androidContext instanceof Activity) {
             ((Activity) androidContext).finish();
         }
+    }
+
+    public ImageBinder getImageBinder() {
+        return imageBinder;
     }
 }

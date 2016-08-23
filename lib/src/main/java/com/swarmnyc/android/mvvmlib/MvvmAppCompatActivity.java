@@ -1,8 +1,10 @@
 package com.swarmnyc.android.mvvmlib;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -37,7 +39,8 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
 
         viewModel.setContext(mvvmContext);
 
-        ViewDataBinding viewDataBinding = onCreateViewBinding();
+        ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
+
         if (viewDataBinding == null) {
             throw new RuntimeException("MVVMLib Cannot do binding when ViewDataBinding is null");
         }
@@ -49,11 +52,14 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
     protected void onStart() {
         super.onStart();
         Intent intent = this.getIntent();
+        Bundle args = null;
         if (intent == null) {
-            onModelBinding(viewModel, null);
         } else {
-            onModelBinding(viewModel, intent.getBundleExtra(Keys.ARGS));
+            args = intent.getBundleExtra(Keys.ARGS);
         }
+
+        viewModel.onInit(args);
+        onModelBinding(viewModel, args);
     }
 
     @Override
@@ -73,19 +79,17 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
         if (data != null) {
             Bundle args = data.getBundleExtra(Keys.ARGS);
             if (args != null) {
-                onResult(requestCode, resultCode, args);
+                viewModel.onResult(requestCode, resultCode, args);
             }
         }
-    }
-
-    protected void onResult(int requestCode, int resultCode, Bundle data) {
     }
 
     public T getViewModel() {
         return viewModel;
     }
 
-    protected abstract ViewDataBinding onCreateViewBinding();
+    @LayoutRes
+    protected abstract int getLayoutResourceId();
 
     protected NavigationManager createNavigationManager() {
         return new DefaultNavigationManager();
@@ -96,6 +100,4 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
 
     protected void buildNavigation(NavigationManager manager) {
     }
-
-
 }

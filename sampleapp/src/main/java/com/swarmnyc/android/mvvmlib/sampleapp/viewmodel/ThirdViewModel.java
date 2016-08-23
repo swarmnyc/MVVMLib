@@ -1,10 +1,42 @@
 package com.swarmnyc.android.mvvmlib.sampleapp.viewmodel;
 
+import android.os.Bundle;
 import android.os.Parcel;
 
 import com.swarmnyc.android.mvvmlib.MvvmViewModel;
+import com.swarmnyc.android.mvvmlib.binding.BindableString;
 
 public class ThirdViewModel extends MvvmViewModel {
+    private BindableString data;
+    private String title;
+
+    public ThirdViewModel() {
+        data = new BindableString();
+    }
+
+    @Override
+    public void onInit(Bundle args) {
+        title = args.getString("title");
+        data.set(args.getString("data"));
+    }
+
+    public BindableString getData() {
+        return data;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void close() {
+        Bundle bundle = new Bundle();
+        bundle.putString("data", data.get());
+        this.getContext().close(1, bundle);
+    }
 
     @Override
     public int describeContents() {
@@ -13,16 +45,11 @@ public class ThirdViewModel extends MvvmViewModel {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-    }
-
-    public ThirdViewModel() {
+        dest.writeParcelable(this.data, flags);
     }
 
     protected ThirdViewModel(Parcel in) {
-    }
-
-    public void close(){
-        this.getContext().close();
+        this.data = in.readParcelable(BindableString.class.getClassLoader());
     }
 
     public static final Creator<ThirdViewModel> CREATOR = new Creator<ThirdViewModel>() {
@@ -36,4 +63,5 @@ public class ThirdViewModel extends MvvmViewModel {
             return new ThirdViewModel[size];
         }
     };
+
 }

@@ -1,5 +1,7 @@
 package com.swarmnyc.android.mvvmlib.sampleapp;
 
+import android.os.Bundle;
+
 import com.swarmnyc.android.mvvmlib.MvvmApplication;
 import com.swarmnyc.android.mvvmlib.navigation.ActivityNavigationHandler;
 import com.swarmnyc.android.mvvmlib.navigation.NavigationManager;
@@ -13,6 +15,11 @@ public class MainApplication extends MvvmApplication {
         manager.addNavigation("MainActivity", new ActivityNavigationHandler(MainActivity.class));
         manager.addNavigation("FirstActivity", new ActivityNavigationHandler(FirstActivity.class));
         manager.addNavigation("SecondActivity", new ActivityNavigationHandler(SecondActivity.class, 2));
-        manager.addNavigation("ThirdActivity", new ActivityNavigationHandler(ThirdActivity.class, 3));
+        manager.addNavigation("ThirdActivity", new ActivityNavigationHandler(ThirdActivity.class, 3) {
+            @Override
+            public void setArgs(Bundle args) {
+                args.putString("title", "Args Test");
+            }
+        });
     }
 }
