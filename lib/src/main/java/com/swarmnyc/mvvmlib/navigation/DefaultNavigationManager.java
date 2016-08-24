@@ -50,9 +50,7 @@ public class DefaultNavigationManager implements NavigationManager {
                 // pass to application level
                 mvvmAppContext.getNavigationManager().navigateTo(context, path, args);
         } else {
-            if (navigationHandler instanceof ActivityNavigationHandler) {
-                ((ActivityNavigationHandler) navigationHandler).navigate((Activity) context, args);
-            }
+            navigationHandler.navigate(context, args);
         }
     }
 

@@ -14,10 +14,18 @@ public abstract class MvvmViewModel implements Parcelable {
         this.context = context;
     }
 
-    public void onResult(int requestCode, int resultCode, Bundle args) {
+    protected void onResult(int requestCode, int resultCode, Bundle args) {
     }
 
-    public void onInit(Bundle args) {
+    protected void onInit(Bundle args) {
 
+    }
+
+    protected void navigateTo(String path) {
+        context.getNavigationManager().navigateTo(path);
+    }
+
+    protected void navigateTo(String path, Bundle bundle) {
+        context.getNavigationManager().navigateTo(path, bundle);
     }
 }

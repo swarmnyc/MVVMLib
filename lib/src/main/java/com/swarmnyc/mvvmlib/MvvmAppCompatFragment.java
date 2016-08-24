@@ -1,31 +1,26 @@
 package com.swarmnyc.mvvmlib;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-
-import com.swarmnyc.mvvmlib.navigation.DefaultNavigationManager;
-import com.swarmnyc.mvvmlib.navigation.NavigationManager;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
+public abstract class MvvmAppCompatFragment<T extends MvvmViewModel> extends Fragment implements MvvmFragmentWrapper {
     private T viewModel;
-    private MvvmContext mvvmContext;
+    private MvvmFragmentContext mvvmContext;
 
-    @SuppressWarnings("unchecked")
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mvvmContext = new MvvmContext(this);
-        mvvmContext.setNavigationManager(createNavigationManager());
-        buildNavigation(mvvmContext.getNavigationManager());
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mvvmContext = new MvvmFragmentContext(this);
         if (savedInstanceState == null) {
             try {
                 viewModel = (T) ((Class) ((ParameterizedType) this.getClass().
@@ -39,23 +34,20 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
 
         viewModel.setContext(mvvmContext);
 
-        ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), getLayoutResourceId(), null, false);
 
         if (viewDataBinding == null) {
             throw new RuntimeException("MVVMLib Cannot do binding when ViewDataBinding is null");
         }
 
         viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
+
+        return viewDataBinding.getRoot();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = this.getIntent();
-        Bundle args = null;
-        if (intent != null) {
-            args = intent.getBundleExtra(Keys.ARGS);
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Bundle args = getArguments();
 
         viewModel.onInit(args);
         onModelBinding(viewModel, args);
@@ -67,20 +59,9 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         mvvmContext.destroy();
         super.onDestroy();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            Bundle args = data.getBundleExtra(Keys.ARGS);
-            if (args != null) {
-                viewModel.onResult(requestCode, resultCode, args);
-            }
-        }
     }
 
     public T getViewModel() {
@@ -90,14 +71,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
     @LayoutRes
     protected abstract int getLayoutResourceId();
 
-    protected NavigationManager createNavigationManager() {
-        return new DefaultNavigationManager();
-    }
-
     protected void onModelBinding(T viewModel, Bundle args) {
-    }
-
-    protected void buildNavigation(NavigationManager manager) {
     }
 
     protected void navigateTo(String path) {

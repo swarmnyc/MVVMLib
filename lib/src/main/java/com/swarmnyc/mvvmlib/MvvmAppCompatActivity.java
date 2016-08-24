@@ -53,8 +53,7 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
         super.onStart();
         Intent intent = this.getIntent();
         Bundle args = null;
-        if (intent == null) {
-        } else {
+        if (intent != null)  {
             args = intent.getBundleExtra(Keys.ARGS);
         }
 
@@ -99,5 +98,13 @@ public abstract class MvvmAppCompatActivity<T extends MvvmViewModel> extends App
     }
 
     protected void buildNavigation(NavigationManager manager) {
+    }
+
+    protected void navigateTo(String path) {
+        mvvmContext.getNavigationManager().navigateTo(path);
+    }
+
+    protected void navigateTo(String path, Bundle bundle) {
+        mvvmContext.getNavigationManager().navigateTo(path, bundle);
     }
 }

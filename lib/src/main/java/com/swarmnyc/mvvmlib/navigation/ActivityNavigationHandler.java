@@ -1,10 +1,13 @@
 package com.swarmnyc.mvvmlib.navigation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.swarmnyc.mvvmlib.Keys;
+
+import java.security.InvalidParameterException;
 
 public class ActivityNavigationHandler implements NavigationHandler {
     private Class activity;
@@ -22,7 +25,11 @@ public class ActivityNavigationHandler implements NavigationHandler {
     public void setArgs(Bundle args) {
     }
 
-    public void navigate(Activity activity, Bundle args) {
+    public void navigate(Context context, Bundle args) {
+        Activity activity = (Activity) context;
+        if (activity==null)
+            throw new InvalidParameterException("ActivityNavigationHandler needs Activity to navigate");
+
         Intent intent = new Intent(activity, this.activity);
 
         if (args == null)
