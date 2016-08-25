@@ -44,7 +44,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.swarmnyc'
             artifactId 'mvvmlib'
-            version '0.2'
+            version '0.3'
             artifact("$buildDir/outputs/aar/lib-release.aar")
         }
     }
