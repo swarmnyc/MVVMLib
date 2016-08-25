@@ -44,12 +44,12 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
             ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
 
             if (viewDataBinding == null) {
-                throw new RuntimeException(Errors.no_view_data_binding);
+                throw new RuntimeException(Errors.NO_VIEW_DATA_BINDING);
             }
 
             viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
         } else {
-            Log.w(TAG, Errors.no_viewmodel_type);
+            Log.w(TAG, Errors.NO_VIEWMODEL_TYPE);
             this.setContentView(getLayoutResourceId());
         }
     }

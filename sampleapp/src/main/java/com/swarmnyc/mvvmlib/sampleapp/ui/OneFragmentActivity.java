@@ -18,7 +18,12 @@ public class OneFragmentActivity extends MvvmActivity {
     protected void buildNavigation(NavigationManager manager) {
         //Activity Level Navigation are used before Application Level
 
-        manager.add("First", new FragmentNavigationHandler(FirstFragment.class, R.id.fragment_container));
+        manager.add("First", new FragmentNavigationHandler(FirstFragment.class, R.id.fragment_container){
+            @Override
+            protected boolean isReuseIfInBackStack() {
+                return true;
+            }
+        });
         manager.add("Second", new FragmentNavigationHandler(SecondFragment.class, R.id.fragment_container, 2));
         manager.add("Third", new FragmentNavigationHandler(ThirdFragment.class, R.id.fragment_container, 3){
             @Override

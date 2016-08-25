@@ -7,13 +7,16 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.util.Log;
 
 import com.swarmnyc.mvvmlib.Errors;
+import com.swarmnyc.mvvmlib.Keys;
 
 import java.security.InvalidParameterException;
 
 public class FragmentNavigationHandler implements NavigationHandler {
     public static final String FTAG = "fragmentTag";
+    public static final String TAG = "NavigationHandler";
     private final int layoutId;
     private final Class fragmentClass;
     private Integer requestCode;
@@ -45,10 +48,15 @@ public class FragmentNavigationHandler implements NavigationHandler {
         return false;
     }
 
+
+    protected boolean reuseIfInBackStack() {
+        return false;
+    }
+
     @Override
     public void navigate(Context context, Bundle args) {
         if (!(context instanceof Activity)) {
-            throw new InvalidParameterException(Errors.fnh_need_activity);
+            throw new InvalidParameterException(Errors.FNH_NEED_ACTIVITY);
         }
 
         Activity activity = (Activity) context;
@@ -56,16 +64,27 @@ public class FragmentNavigationHandler implements NavigationHandler {
         try {
             fragment = newFragment();
         } catch (Exception e) {
-            throw new InvalidParameterException(Errors.fail_create_fragment);
+            throw new InvalidParameterException(Errors.FAIL_CREATE_FRAGMENT);
         }
 
-        if (args == null)
-            args = new Bundle();
-
-        setArgs(args);
-        fragment.setArguments(args);
-
         FragmentManager fragmentManager = activity.getFragmentManager();
+
+        if (reuseIfInBackStack()) {
+            Fragment currentFragment;
+            while ((currentFragment = fragmentManager.findFragmentById(layoutId)) != null) {
+                if (fragmentClass.isInstance(currentFragment)) {
+                    return;
+                }
+
+                Bundle fargs = currentFragment.getArguments();
+                if (fargs != null && fargs.getInt(Keys.TRANSACTION_ID, -1) >= 0) {
+                    fragmentManager.popBackStackImmediate(fargs.getInt(Keys.TRANSACTION_ID), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                } else {
+                    Log.w(TAG, Errors.UNEXPECTED);
+                    break;
+                }
+            }
+        }
 
         if (requestCode != null) {
             Fragment lastFragment = fragmentManager.findFragmentByTag(FTAG);
@@ -76,11 +95,20 @@ public class FragmentNavigationHandler implements NavigationHandler {
 
         if (!customTransaction()) {
             transaction.replace(layoutId, fragment, FTAG);
-            if (fragmentManager.findFragmentById(layoutId) != null) {
+            if (getBackStackName() != null && fragmentManager.findFragmentById(layoutId) != null) {
                 transaction.addToBackStack(getBackStackName());
             }
         }
 
-        transaction.commit();
+        int id = transaction.commit();
+
+        if (args == null)
+            args = new Bundle();
+
+        args.putInt(Keys.TRANSACTION_ID, id);
+        args.putInt(Keys.LAYOUT_ID, layoutId);
+
+        setArgs(args);
+        fragment.setArguments(args);
     }
 }

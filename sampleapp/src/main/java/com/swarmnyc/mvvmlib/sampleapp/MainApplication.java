@@ -9,6 +9,7 @@ import com.swarmnyc.mvvmlib.sampleapp.ui.FirstActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.OneFragmentActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.SecondActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.ThirdActivity;
+import com.swarmnyc.mvvmlib.sampleapp.ui.TwoFragmentActivity;
 
 public class MainApplication extends MvvmApplication {
     @Override
@@ -26,5 +27,6 @@ public class MainApplication extends MvvmApplication {
         });
 
         manager.add("OneFragment", new ActivityNavigationHandler(OneFragmentActivity.class));
+        manager.add("TwoFragment", new ActivityNavigationHandler(TwoFragmentActivity.class));
     }
 }

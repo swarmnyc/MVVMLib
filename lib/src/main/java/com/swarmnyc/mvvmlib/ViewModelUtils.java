@@ -10,7 +10,7 @@ public class ViewModelUtils {
             Class viewModelClass = (Class) parameterizedType.getActualTypeArguments()[0];
             return viewModelClass.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(Errors.create_viewmodel, e);
+            throw new RuntimeException(Errors.CREATE_VIEWMODEL, e);
         }
     }
 

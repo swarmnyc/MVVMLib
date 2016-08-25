@@ -20,12 +20,13 @@
         </activity>
         <activity
             android:name=".ui.SecondActivity"
-            android:label="Second Activity"></activity>
+            android:label="Second Activity"/>
         <activity
             android:name=".ui.ThirdActivity"
-            android:label="Third Activity"></activity>
-        <activity android:name=".ui.FirstActivity"></activity>
-        <activity android:name=".ui.OneFragmentActivity"></activity>
+            android:label="Third Activity"/>
+        <activity android:name=".ui.FirstActivity"/>
+        <activity android:name=".ui.OneFragmentActivity"/>
+        <activity android:name=".ui.TwoFragmentActivity"/>
     </application>
 
 </manifest>

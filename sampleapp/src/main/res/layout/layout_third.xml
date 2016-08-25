@@ -37,6 +37,29 @@
             android:layout_height="wrap_content"
             android:text="Close"
             android:onClick='@{()-> viewmodel.close()}'/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Close() for Activity is calling activity.finish(), for Fragment is calling activity.onBackPressed()"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Navigate to Third"
+            mvvm:navTo='@{"Third"}'/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Navigate to First"
+            mvvm:navTo='@{"First"}'/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NavTo() for Activity is creating new Activity, for Fragment has two behaviors. one is creating a new Fragment, one is reuse if the fragment is in back stack. The setting is on FragmentNavigationHandler"/>
+
     </LinearLayout>
 </layout>
 

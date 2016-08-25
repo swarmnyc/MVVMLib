@@ -19,16 +19,22 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Activity Demo"
             mvvm:navTo='@{"First"}'/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick='@{()-> viewmodel.navToOneFragment()}'
-            android:text="Fragment Demo"/>
+            android:text="One Fragment Demo"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mvvm:navTo='@{"TwoFragment"}'
+            android:text="Two Fragment Demo"/>
     </LinearLayout>
 </layout>
 

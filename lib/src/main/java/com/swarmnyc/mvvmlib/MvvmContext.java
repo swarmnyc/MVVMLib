@@ -29,7 +29,7 @@ public class MvvmContext {
         }
 
         if (context == null)
-            throw new RuntimeException(Errors.no_context);
+            throw new RuntimeException(Errors.NO_CONTEXT);
 
         return context;
     }
@@ -45,7 +45,7 @@ public class MvvmContext {
 
     public MvvmContext(Context androidContext) {
         if (androidContext == null) {
-            throw new InvalidParameterException(Errors.is_null("androidContext"));
+            throw new InvalidParameterException(Errors.isNull("androidContext"));
         }
         this.androidContext = androidContext;
         contextHashMap.put(androidContext, this);

@@ -46,7 +46,7 @@ public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment imp
             ViewDataBinding viewDataBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), getLayoutResourceId(), container, false);
 
             if (viewDataBinding == null) {
-                throw new RuntimeException(Errors.no_view_data_binding);
+                throw new RuntimeException(Errors.NO_VIEW_DATA_BINDING);
             }
 
             viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
