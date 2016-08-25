@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import alias="CropType" type="com.swarmnyc.mvvmlib.binding.image.ImageCropType"/>
+
+        <variable
+            name="viewmodel"
+            type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.BindingViewModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ImageView Bind To Url String"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                mvvm:image="@{viewmodel.imageString}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ImageView Bind To Uri Object"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                mvvm:image="@{viewmodel.imageUri}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ImageView Bind To LocalDrawable"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                mvvm:image="@{viewmodel.localImageUri}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ImageView Round Crop"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                mvvm:image="@{viewmodel.user1ImageUri}"
+                mvvm:imageCrop="@{CropType.Round}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BindableUri"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch Image"
+                android:onCheckedChanged="@{(view, isCheck)-> viewmodel.switchUser(isCheck)}"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                mvvm:image="@{viewmodel.userImageUri}"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bind Drawable Id"/>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Switch Image"
+                android:onCheckedChanged="@{(view, isCheck)-> viewmodel.switchDrawable(isCheck)}"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                mvvm:drawable="@{viewmodel.drawableId}"/>
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

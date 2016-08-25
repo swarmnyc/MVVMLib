@@ -3,7 +3,7 @@ package com.swarmnyc.mvvmlib.binding;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.databinding.tool.util.StringUtils;
-import android.os.Build;
+import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.Html;
@@ -26,6 +26,33 @@ public class BindingUtils {
     @BindingConversion
     public static boolean convertBindableToBoolean(BindableBoolean bindableBoolean) {
         return bindableBoolean.get();
+    }
+
+    @BindingConversion
+    public static Uri convertStringToUri(BindableString string) {
+        if (string != null && !string.isEmpty()) {
+            return Uri.parse(string.get());
+        } else {
+            return null;
+        }
+    }
+
+    @BindingConversion
+    public static Uri convertStringToUri(String string) {
+        if (string != null && !string.isEmpty()) {
+            return Uri.parse(string);
+        } else {
+            return null;
+        }
+    }
+
+    @BindingConversion
+    public static Uri convertBindableUriToUri(BindableUri uri) {
+        if (uri != null) {
+            return uri.get();
+        } else {
+            return null;
+        }
     }
 
     @BindingAdapter({"mvvm:visibility"})
@@ -93,30 +120,35 @@ public class BindingUtils {
     }
 
     @BindingAdapter({"mvvm:image"})
-    public static void bindImage(final ImageView view, final String imageUrl) {
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, ImageCropType.Center, 0);
+    public static void bindImage(final ImageView view, final Uri imageUri) {
+        if (imageUri != null) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUri, ImageCropType.Center, 0);
         }
     }
 
     @BindingAdapter({"mvvm:image", "mvvm:imageError"})
-    public static void bindImage(final ImageView view, final String imageUrl, @DrawableRes final int resId) {
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, ImageCropType.Center, resId);
+    public static void bindImage(final ImageView view, final Uri imageUri, @DrawableRes final int resId) {
+        if (imageUri != null) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUri, ImageCropType.Center, resId);
         }
     }
 
-    @BindingAdapter({"mvvm:image", "mvvm:imageCropType"})
-    public static void bindImage(final ImageView view, final String imageUrl, final ImageCropType type) {
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, type, 0);
+    @BindingAdapter({"mvvm:image", "mvvm:imageCrop"})
+    public static void bindImage(final ImageView view, final Uri imageUri, final ImageCropType type) {
+        if (imageUri != null) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUri, type, 0);
         }
     }
 
-    @BindingAdapter({"mvvm:image", "mvvm:imageCropType", "mvvm:imageError"})
-    public static void bindImage(final ImageView view, final String imageUrl, final ImageCropType type, @DrawableRes final int resId) {
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            MvvmContext.getContext(view).getImageBinder().bind(view, imageUrl, type, resId);
+    @BindingAdapter({"mvvm:image", "mvvm:imageCrop", "mvvm:imageError"})
+    public static void bindImage(final ImageView view, final Uri imageUri, final ImageCropType type, @DrawableRes final int resId) {
+        if (imageUri != null) {
+            MvvmContext.getContext(view).getImageBinder().bind(view, imageUri, type, resId);
         }
+    }
+
+    @BindingAdapter({"mvvm:drawable"})
+    public static void bindDrawable(final ImageView view, final @DrawableRes int redId) {
+        view.setImageResource(redId);
     }
 }

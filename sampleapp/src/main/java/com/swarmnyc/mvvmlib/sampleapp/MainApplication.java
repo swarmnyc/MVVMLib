@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.swarmnyc.mvvmlib.MvvmApplication;
 import com.swarmnyc.mvvmlib.navigation.ActivityNavigationHandler;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
+import com.swarmnyc.mvvmlib.sampleapp.ui.BindingActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.FirstActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.OneFragmentActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.SecondActivity;
@@ -28,5 +29,6 @@ public class MainApplication extends MvvmApplication {
 
         manager.add("OneFragment", new ActivityNavigationHandler(OneFragmentActivity.class));
         manager.add("TwoFragment", new ActivityNavigationHandler(TwoFragmentActivity.class));
+        manager.add("Binding", new ActivityNavigationHandler(BindingActivity.class));
     }
 }

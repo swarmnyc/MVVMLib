@@ -35,6 +35,12 @@
             android:layout_height="wrap_content"
             mvvm:navTo='@{"TwoFragment"}'
             android:text="Two Fragment Demo"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mvvm:navTo='@{"Binding"}'
+            android:text="Binding Demo"/>
     </LinearLayout>
 </layout>
 
