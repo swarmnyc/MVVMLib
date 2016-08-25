@@ -10,13 +10,17 @@ import java.util.Map;
 public interface NavigationManager {
     void setMvvmContext(MvvmContext mvvmContext);
 
-    void navigateTo(String path);
+    boolean navigateTo(String path);
 
-    void navigateTo(String path, Bundle args);
+    boolean navigateTo(String path, Bundle args);
 
-    void navigateTo(Context context, String path, Bundle args);
+    boolean navigateTo(Context context, String path, Bundle args);
 
-    void addNavigation(String path, NavigationHandler handler);
+    void navigateBack();
+
+    NavigationManager add(String path, NavigationHandler handler);
+
+    void remove(String path);
 
     void linkTo(String url);
 }

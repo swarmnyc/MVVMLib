@@ -7,63 +7,73 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.swarmnyc.mvvmlib.navigation.DefaultNavigationManager;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
-import java.lang.reflect.ParameterizedType;
-
 public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
+    public static final String TAG = "MvvmActivity";
     private T viewModel;
     private MvvmContext mvvmContext;
+    private boolean viewModelEnabled;
+
+    public boolean isViewModelEnabled() {
+        return viewModelEnabled;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mvvmContext = new MvvmContext(this);
         mvvmContext.setNavigationManager(createNavigationManager());
         buildNavigation(mvvmContext.getNavigationManager());
 
-        if (savedInstanceState == null) {
-            try {
-                viewModel = (T) ((Class) ((ParameterizedType) this.getClass().
-                        getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException("MVVMLib Cannot create ViewModel", e);
+        viewModelEnabled = ViewModelUtils.assignFromViewModel(this.getClass());
+        if (viewModelEnabled) {
+            // Use ViewModel
+            if (savedInstanceState == null) {
+                viewModel = (T) ViewModelUtils.createViewModel(this.getClass());
+            } else {
+                viewModel = savedInstanceState.getParcelable(Keys.VIEW_MODEL);
             }
+
+            viewModel.setContext(mvvmContext);
+
+            ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
+
+            if (viewDataBinding == null) {
+                throw new RuntimeException(Errors.no_view_data_binding);
+            }
+
+            viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
         } else {
-            viewModel = savedInstanceState.getParcelable(Keys.VIEW_MODEL);
+            Log.w(TAG, Errors.no_viewmodel_type);
+            this.setContentView(getLayoutResourceId());
         }
-
-        viewModel.setContext(mvvmContext);
-
-        ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
-
-        if (viewDataBinding == null) {
-            throw new RuntimeException("MVVMLib Cannot do binding when ViewDataBinding is null");
-        }
-
-        viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Intent intent = this.getIntent();
-        Bundle args = null;
-        if (intent != null) {
-            args = intent.getBundleExtra(Keys.ARGS);
-        }
+        if (viewModelEnabled) {
+            Intent intent = this.getIntent();
+            Bundle args = null;
+            if (intent != null) {
+                args = intent.getBundleExtra(Keys.ARGS);
+            }
 
-        viewModel.onInit(args);
-        onModelBinding(viewModel, args);
+            viewModel.onInit(args);
+            onModelBinding(viewModel, args);
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(Keys.VIEW_MODEL, viewModel);
+        if (viewModelEnabled) {
+            outState.putParcelable(Keys.VIEW_MODEL, viewModel);
+        }
     }
 
     @Override
@@ -75,7 +85,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
+        if (viewModelEnabled && data != null) {
             Bundle args = data.getBundleExtra(Keys.ARGS);
             if (args != null) {
                 viewModel.onResult(requestCode, resultCode, args);

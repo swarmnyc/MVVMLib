@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.swarmnyc.mvvmlib.sampleapp">
+    package="com.swarmnyc.mvvmlib.sampleapp">
 
     <application
         android:name=".MainApplication"
@@ -13,21 +13,19 @@
             android:name=".MainActivity"
             android:label="MVVMLib Sample App">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.SecondActivity"
-            android:label="Second Activity">
-        </activity>
+            android:label="Second Activity"></activity>
         <activity
             android:name=".ui.ThirdActivity"
-            android:label="Third Activity">
-        </activity>
-        <activity android:name=".ui.FirstActivity">
-        </activity>
+            android:label="Third Activity"></activity>
+        <activity android:name=".ui.FirstActivity"></activity>
+        <activity android:name=".ui.OneFragmentActivity"></activity>
     </application>
 
 </manifest>

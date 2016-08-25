@@ -1,14 +1,20 @@
-package com.swarmnyc.mvvmlib;
+package com.swarmnyc.mvvmlib.support;
 
-import android.app.Fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.swarmnyc.mvvmlib.Errors;
+import com.swarmnyc.mvvmlib.Keys;
+import com.swarmnyc.mvvmlib.MvvmContext;
+import com.swarmnyc.mvvmlib.MvvmViewModel;
+import com.swarmnyc.mvvmlib.ViewModelUtils;
 
 public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment {
     private T viewModel;

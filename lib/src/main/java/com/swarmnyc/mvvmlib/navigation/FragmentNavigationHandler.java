@@ -1,24 +1,32 @@
 package com.swarmnyc.mvvmlib.navigation;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+
+import com.swarmnyc.mvvmlib.Errors;
 
 import java.security.InvalidParameterException;
 
 public class FragmentNavigationHandler implements NavigationHandler {
-    private final int targetId;
+    public static final String FTAG = "fragmentTag";
+    private final int layoutId;
     private final Class fragmentClass;
+    private Integer requestCode;
 
-    public <T extends Fragment> FragmentNavigationHandler(Class<T> fragmentClass, @IdRes int targetId) {
+    public <T extends Fragment> FragmentNavigationHandler(Class<T> fragmentClass, @IdRes int layoutId) {
         this.fragmentClass = fragmentClass;
-        this.targetId = targetId;
+        this.layoutId = layoutId;
+    }
+
+    public <T extends Fragment> FragmentNavigationHandler(Class<T> fragmentClass, @IdRes int layoutId, int requestCode) {
+        this.fragmentClass = fragmentClass;
+        this.layoutId = layoutId;
+        this.requestCode = requestCode;
     }
 
     public void setArgs(Bundle args) {
@@ -39,16 +47,16 @@ public class FragmentNavigationHandler implements NavigationHandler {
 
     @Override
     public void navigate(Context context, Bundle args) {
-        if (!(context instanceof AppCompatActivity)) {
-            throw new InvalidParameterException("ActivityNavigationHandler needs Activity to navigate");
+        if (!(context instanceof Activity)) {
+            throw new InvalidParameterException(Errors.fnh_need_activity);
         }
 
-        AppCompatActivity activity = (AppCompatActivity) context;
+        Activity activity = (Activity) context;
         Fragment fragment;
         try {
             fragment = newFragment();
         } catch (Exception e) {
-            throw new InvalidParameterException("Fragment can't be created");
+            throw new InvalidParameterException(Errors.fail_create_fragment);
         }
 
         if (args == null)
@@ -57,13 +65,18 @@ public class FragmentNavigationHandler implements NavigationHandler {
         setArgs(args);
         fragment.setArguments(args);
 
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentManager fragmentManager = activity.getFragmentManager();
+
+        if (requestCode != null) {
+            Fragment lastFragment = fragmentManager.findFragmentByTag(FTAG);
+            fragment.setTargetFragment(lastFragment, requestCode);
+        }
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (!customTransaction()) {
-            transaction.replace(targetId, fragment);
-            if (fragmentManager.getBackStackEntryCount() != 0) {
+            transaction.replace(layoutId, fragment, FTAG);
+            if (fragmentManager.findFragmentById(layoutId) != null) {
                 transaction.addToBackStack(getBackStackName());
             }
         }

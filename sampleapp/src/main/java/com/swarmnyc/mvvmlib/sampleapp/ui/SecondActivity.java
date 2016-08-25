@@ -15,7 +15,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.layout_second);
 
         final Intent intent = getIntent();
         final Bundle bundle = intent.getBundleExtra(Keys.ARGS);

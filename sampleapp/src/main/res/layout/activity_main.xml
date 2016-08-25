@@ -22,12 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Activity Demo"
-            mvvm:navTo='@{"FirstActivity"}'/>
+            mvvm:navTo='@{"First"}'/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick='@{()-> viewmodel.navToFragmentActivity()}'
+            android:onClick='@{()-> viewmodel.navToOneFragment()}'
             android:text="Fragment Demo"/>
     </LinearLayout>
 </layout>

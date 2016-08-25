@@ -1,0 +1,25 @@
+package com.swarmnyc.mvvmlib.sampleapp.ui;
+
+import com.swarmnyc.mvvmlib.navigation.NavigationManager;
+import com.swarmnyc.mvvmlib.sampleapp.R;
+import com.swarmnyc.mvvmlib.support.MvvmActivity;
+import com.swarmnyc.mvvmlib.support.navigation.FragmentNavigationHandler;
+
+public class OneFragmentActivity extends MvvmActivity {
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_one_fragment;
+    }
+
+    @Override
+    protected void buildNavigation(NavigationManager manager) {
+        //Activity Level Navigation are used before Application Level
+
+        manager.add("First", new FragmentNavigationHandler(FirstFragment.class, R.id.fragment_container));
+        manager.add("Second", new FragmentNavigationHandler(SecondFragment.class, R.id.fragment_container, 2));
+        manager.add("Third", new FragmentNavigationHandler(ThirdFragment.class, R.id.fragment_container, 3));
+
+        navigateTo("First");
+    }
+}

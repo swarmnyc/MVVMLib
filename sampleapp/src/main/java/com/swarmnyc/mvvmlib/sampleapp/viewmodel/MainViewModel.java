@@ -18,8 +18,8 @@ public class MainViewModel extends MvvmViewModel {
     public MainViewModel() {
     }
 
-    public void navToFragmentActivity() {
-        getContext().getNavigationManager().navigateTo("FragmentActivity");
+    public void navToOneFragment() {
+        navigateTo("OneFragment");
     }
 
     protected MainViewModel(Parcel in) {

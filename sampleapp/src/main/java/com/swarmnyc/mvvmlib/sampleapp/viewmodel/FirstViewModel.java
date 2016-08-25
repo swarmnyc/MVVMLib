@@ -24,10 +24,10 @@ public class FirstViewModel extends MvvmViewModel {
         return passedData;
     }
 
-    public void navToThirdActivity() {
+    public void navToThird() {
         Bundle args = new Bundle();
         args.putString("data", getDataToPass().get());
-        getContext().getNavigationManager().navigateTo("ThirdActivity", args);
+        getContext().getNavigationManager().navigateTo("Third", args);
     }
 
     @Override

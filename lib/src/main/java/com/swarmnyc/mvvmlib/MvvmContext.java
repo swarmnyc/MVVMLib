@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.view.View;
 
 import com.swarmnyc.mvvmlib.binding.image.ImageBinder;
@@ -35,17 +36,21 @@ public class MvvmContext {
         }
 
         if (context == null)
-            throw new RuntimeException("In order to use MVVMLib, you have to new a MvvmContext");
+            throw new RuntimeException(Errors.no_context);
 
         return context;
     }
 
-    private NavigationManager navigationManager;
-    private Context androidContext;
+    protected NavigationManager navigationManager;
+    protected Context androidContext;
+
+    protected MvvmContext(){
+
+    }
 
     public MvvmContext(Context androidContext) {
         if (androidContext == null) {
-            throw new InvalidParameterException("androidContext can't be null");
+            throw new InvalidParameterException( Errors.is_null("androidContext"));
         }
         this.androidContext = androidContext;
         contextHashMap.put(androidContext, this);
