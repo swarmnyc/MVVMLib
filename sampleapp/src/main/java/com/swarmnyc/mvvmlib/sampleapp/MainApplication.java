@@ -21,7 +21,7 @@ public class MainApplication extends MvvmApplication {
         manager.add("Third", new ActivityNavigationHandler(ThirdActivity.class, 3) {
             @Override
             public void setArgs(Bundle args) {
-                args.putString("title", "Args Test");
+                args.putString("title", "Pass from MainApplication");
             }
         });
 

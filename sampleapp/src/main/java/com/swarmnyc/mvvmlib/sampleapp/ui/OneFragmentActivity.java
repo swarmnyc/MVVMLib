@@ -1,5 +1,7 @@
 package com.swarmnyc.mvvmlib.sampleapp.ui;
 
+import android.os.Bundle;
+
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 import com.swarmnyc.mvvmlib.sampleapp.R;
 import com.swarmnyc.mvvmlib.support.MvvmActivity;
@@ -18,7 +20,12 @@ public class OneFragmentActivity extends MvvmActivity {
 
         manager.add("First", new FragmentNavigationHandler(FirstFragment.class, R.id.fragment_container));
         manager.add("Second", new FragmentNavigationHandler(SecondFragment.class, R.id.fragment_container, 2));
-        manager.add("Third", new FragmentNavigationHandler(ThirdFragment.class, R.id.fragment_container, 3));
+        manager.add("Third", new FragmentNavigationHandler(ThirdFragment.class, R.id.fragment_container, 3){
+            @Override
+            public void setArgs(Bundle args) {
+                args.putString("title", "Pass from OneFragmentActivity");
+            }
+        });
 
         navigateTo("First");
     }

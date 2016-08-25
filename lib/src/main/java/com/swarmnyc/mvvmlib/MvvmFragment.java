@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment {
+public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment implements FragmentWrapper {
     private T viewModel;
     private MvvmContext mvvmContext;
     private boolean viewModelEnabled;
@@ -86,6 +86,7 @@ public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment {
         mvvmContext.getNavigationManager().navigateBack();
     }
 
+    @Override
     public void onResult(int requestCode, int resultCode, Bundle bundle) {
         if (viewModelEnabled) {
             viewModel.onResult(requestCode, resultCode, bundle);

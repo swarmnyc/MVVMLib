@@ -1,12 +1,10 @@
 package com.swarmnyc.mvvmlib;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.view.View;
 
+import com.swarmnyc.mvvmlib.binding.image.GlideImageBinder;
 import com.swarmnyc.mvvmlib.binding.image.ImageBinder;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
@@ -14,13 +12,8 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 
 public class MvvmContext {
-    private static Class navigationManagerClass;
+    //<editor-fold desc="Static">
     private static HashMap<Context, MvvmContext> contextHashMap = new HashMap<>();
-    private ImageBinder imageBinder;
-
-    public static <T extends NavigationManager> void setNavigationManager(Class<T> navigationManagerClass) {
-        MvvmContext.navigationManagerClass = navigationManagerClass;
-    }
 
     public static MvvmContext getContext(View view) {
         Context androidContext = AndroidUtils.getContext(view);
@@ -40,17 +33,19 @@ public class MvvmContext {
 
         return context;
     }
+    //</editor-fold>
 
     protected NavigationManager navigationManager;
     protected Context androidContext;
+    protected ImageBinder imageBinder;
+    protected Object dataStore;
 
-    protected MvvmContext(){
-
+    protected MvvmContext() {
     }
 
     public MvvmContext(Context androidContext) {
         if (androidContext == null) {
-            throw new InvalidParameterException( Errors.is_null("androidContext"));
+            throw new InvalidParameterException(Errors.is_null("androidContext"));
         }
         this.androidContext = androidContext;
         contextHashMap.put(androidContext, this);
@@ -77,32 +72,70 @@ public class MvvmContext {
         return navigationManager;
     }
 
+    /**
+     * Set your custom NavigationManager instead of using DefaultNavigationManager
+     *
+     * @param navigationManager The class of your custom NavigationManager
+     */
     public void setNavigationManager(NavigationManager navigationManager) {
         this.navigationManager = navigationManager;
         this.navigationManager.setMvvmContext(this);
     }
 
-    public void close(int result, Bundle args) {
-        if (androidContext instanceof Activity) {
-            Activity activity = (Activity) this.androidContext;
-            if (args == null) {
-                activity.setResult(result);
-            } else {
-                Intent intent = new Intent();
-                intent.putExtra(Keys.ARGS, args);
-                activity.setResult(result, intent);
-            }
-            activity.finish();
-        }
-    }
-
-    public void close() {
-        if (androidContext instanceof Activity) {
-            ((Activity) androidContext).finish();
-        }
-    }
-
+    /**
+     * Get a image binder, default is GlideImageBinder
+     *
+     * @return A image binder
+     */
     public ImageBinder getImageBinder() {
+        if (imageBinder == null) {
+            imageBinder = new GlideImageBinder();
+        }
         return imageBinder;
+    }
+
+    /**
+     * Set your custom image binder
+     * @param imageBinder your custom image binder object
+     */
+    public void setImageBinder(ImageBinder imageBinder) {
+        this.imageBinder = imageBinder;
+    }
+
+    /**
+     * Get your data store object
+     *
+     * @param <T> Your data store type
+     * @return Data store object
+     */
+    public <T> T getDataStore() {
+        return (T) dataStore;
+    }
+
+    /**
+     * Set your data store object
+     *
+     * @param dataStore your data store object
+     */
+    public void setDataStore(Object dataStore) {
+        this.dataStore = dataStore;
+    }
+
+
+    /**
+     * Close the current Activity or Fragment
+     *
+     * @param result The result send to previous Activity or Fragment
+     * @param args   The args send to previous Activity or Fragment
+     */
+    public void close(int result, Bundle args) {
+        this.navigationManager.closeActivity(result, args);
+    }
+
+    /**
+     * Close the current Activity or Fragment
+     */
+    public void close() {
+        this.navigationManager.closeActivity(null, null);
     }
 }

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.swarmnyc.mvvmlib.FragmentWrapper;
+import com.swarmnyc.mvvmlib.Keys;
 import com.swarmnyc.mvvmlib.MvvmContext;
 
 import java.security.InvalidParameterException;
@@ -65,6 +67,34 @@ public class DefaultNavigationManager implements NavigationManager {
         if (androidContext instanceof Activity) {
             ((Activity) androidContext).onBackPressed();
         }
+    }
+
+    @Override
+    public void closeActivity(Integer result, Bundle args) {
+        Context androidContext = mvvmContext.getAndroidContext();
+        if (androidContext instanceof Activity) {
+            Activity activity = (Activity) androidContext;
+            if (result != null) {
+                if (args == null) {
+                    activity.setResult(result);
+                } else {
+                    Intent intent = new Intent();
+                    intent.putExtra(Keys.ARGS, args);
+                    activity.setResult(result, intent);
+                }
+            }
+
+            activity.finish();
+        }
+    }
+
+    @Override
+    public void closeFragment(FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args) {
+        if (fragment != null) {
+            fragment.onResult(targetRequestCode, result, args);
+        }
+
+        navigateBack();
     }
 
     @Override

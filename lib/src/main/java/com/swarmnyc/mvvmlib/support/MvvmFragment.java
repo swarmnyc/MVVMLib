@@ -14,9 +14,10 @@ import com.swarmnyc.mvvmlib.Errors;
 import com.swarmnyc.mvvmlib.Keys;
 import com.swarmnyc.mvvmlib.MvvmContext;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
+import com.swarmnyc.mvvmlib.FragmentWrapper;
 import com.swarmnyc.mvvmlib.ViewModelUtils;
 
-public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment {
+public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment implements FragmentWrapper {
     private T viewModel;
     private MvvmContext mvvmContext;
     private boolean viewModelEnabled;
