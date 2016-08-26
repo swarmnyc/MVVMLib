@@ -17,6 +17,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
     private T viewModel;
     private MvvmContext mvvmContext;
     private boolean viewModelEnabled;
+    private ViewDataBinding viewDataBinding;
 
     public boolean isViewModelEnabled() {
         return viewModelEnabled;
@@ -41,7 +42,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
 
             viewModel.setContext(mvvmContext);
 
-            ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
+            viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
 
             if (viewDataBinding == null) {
                 throw new RuntimeException(Errors.NO_VIEW_DATA_BINDING);
@@ -65,7 +66,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
             }
 
             viewModel.onInit(args);
-            onModelBinding(viewModel, args);
+            onInit(viewModel, args);
         }
     }
 
@@ -97,6 +98,14 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
         return viewModel;
     }
 
+    protected MvvmContext getMvvmContext() {
+        return mvvmContext;
+    }
+
+    protected <T extends ViewDataBinding> T getViewDataBinding() {
+        return (T)viewDataBinding;
+    }
+
     @LayoutRes
     protected abstract int getLayoutResourceId();
 
@@ -104,7 +113,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
         return new DefaultNavigationManager();
     }
 
-    protected void onModelBinding(T viewModel, Bundle args) {
+    protected void onInit(T viewModel, Bundle args) {
     }
 
     protected void buildNavigation(NavigationManager manager) {
@@ -116,5 +125,9 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
 
     protected void navigateTo(String path, Bundle bundle) {
         mvvmContext.getNavigationManager().navigateTo(path, bundle);
+    }
+
+    protected void navigateBack() {
+        mvvmContext.getNavigationManager().navigateBack();
     }
 }

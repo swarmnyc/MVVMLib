@@ -22,6 +22,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
     private T viewModel;
     private MvvmContext mvvmContext;
     private boolean viewModelEnabled;
+    private ViewDataBinding viewDataBinding;
 
     public boolean isViewModelEnabled() {
         return viewModelEnabled;
@@ -46,7 +47,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
 
             viewModel.setContext(mvvmContext);
 
-            ViewDataBinding viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
+            viewDataBinding = DataBindingUtil.setContentView(this, getLayoutResourceId());
 
             if (viewDataBinding == null) {
                 throw new RuntimeException(Errors.NO_VIEW_DATA_BINDING);
@@ -70,7 +71,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
             }
 
             viewModel.onInit(args);
-            onModelBinding(viewModel, args);
+            onInit(viewModel, args);
         }
     }
 
@@ -98,8 +99,16 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
         }
     }
 
+    protected MvvmContext getMvvmContext() {
+        return mvvmContext;
+    }
+
     public T getViewModel() {
         return viewModel;
+    }
+
+    protected <T extends ViewDataBinding> T getViewDataBinding() {
+        return (T)viewDataBinding;
     }
 
     @LayoutRes
@@ -109,7 +118,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
         return new DefaultNavigationManager();
     }
 
-    protected void onModelBinding(T viewModel, Bundle args) {
+    protected void onInit(T viewModel, Bundle args) {
     }
 
     protected void buildNavigation(NavigationManager manager) {
@@ -121,5 +130,9 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
 
     protected void navigateTo(String path, Bundle bundle) {
         mvvmContext.getNavigationManager().navigateTo(path, bundle);
+    }
+
+    protected void navigateBack() {
+        mvvmContext.getNavigationManager().navigateBack();
     }
 }

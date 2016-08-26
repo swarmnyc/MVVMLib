@@ -45,7 +45,7 @@ public class FragmentNavigationHandler implements NavigationHandler {
         return fragmentClass.getName();
     }
 
-    protected boolean customTransaction() {
+    protected boolean customTransaction(FragmentTransaction transaction) {
         return false;
     }
 
@@ -94,7 +94,7 @@ public class FragmentNavigationHandler implements NavigationHandler {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (!customTransaction()) {
+        if (!customTransaction(transaction)) {
             transaction.replace(layoutId, fragment, FTAG);
             if (getBackStackName() != null && fragmentManager.findFragmentById(layoutId) != null) {
                 transaction.addToBackStack(getBackStackName());
