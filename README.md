@@ -1,11 +1,12 @@
 Android MVVMLib
 ========
 
-A MVVM lib based on Android DataBinding which help you build the app fasten.
+A Model View ViewModel (MVVM) lib based on Android DataBinding which help you build the app fasten.
 
 
-Get Start
+Getting Started
 --------
+
 Gradle:
 ```groovy
 repositories {
@@ -15,6 +16,18 @@ repositories {
 }
 
 compile 'com.swarmnyc:mvvmlib:0.2@aar'
+```
+
+# Local lib install
+
+```groovy
+repositories {
+    maven {
+        mavenLocal()
+    }
+}
+
+compile 'com.swarmnyc:mvvmlib:0.4.7-SNAPSHOT@aar'
 ```
 
 MVVMLib requires at minimum Android Studio 1.3 and later.
