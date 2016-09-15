@@ -41,4 +41,16 @@ public class MvvmContextFragmentWrapper extends MvvmContext {
     public void close() {
         getNavigationManager().closeFragment(null, null, null, null);
     }
+
+    @Override
+    public void register( final String key, final Object data )
+    {
+        parentContext.register( key, data );
+    }
+
+    @Override
+    public <T> T resolve( final String key )
+    {
+        return parentContext.resolve( key );
+    }
 }

@@ -1,5 +1,7 @@
 package com.swarmnyc.mvvmlib;
 
+import android.util.Log;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -10,6 +12,7 @@ public class ViewModelUtils {
             Class viewModelClass = (Class) parameterizedType.getActualTypeArguments()[0];
             return viewModelClass.newInstance();
         } catch (Exception e) {
+            Log.e( "ViewModelUtils", "Error in createViewModel ([sourceClass])", e );
             throw new RuntimeException(Errors.CREATE_VIEWMODEL, e);
         }
     }

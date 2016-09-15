@@ -25,7 +25,7 @@ public class DefaultNavigationManager implements NavigationManager {
     @Override
     public void setMvvmContext(MvvmContext mvvmContext) {
         this.mvvmContext = mvvmContext;
-        this.mvvmAppContext = mvvmContext.getMvvmApplicationContent();
+        this.mvvmAppContext = mvvmContext.getMvvmApplicationContext();
     }
 
     @Override
