@@ -91,6 +91,18 @@ public class BindingUtils {
         }
     }
 
+    @BindingAdapter({"mvvm:onClick"})
+    public static void bindOnClick(final View view, final Runnable runnable) {
+
+        view.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick( final View view )
+            {
+                runnable.run();
+            }
+        } );
+    }
+
     @BindingAdapter({"mvvm:htmlText"})
     public static void bindHtmlText(final TextView textView, final String text) {
         if (StringUtils.isNotBlank(text)) {
