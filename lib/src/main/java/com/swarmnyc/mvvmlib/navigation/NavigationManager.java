@@ -17,7 +17,9 @@ public interface NavigationManager {
 
     void navigateBack();
 
-    void closeActivity(Integer result, Bundle args);
+    void dismiss( final String lowerCasePath );
+
+    void closeActivity( Integer result, Bundle args);
 
     void closeFragment(FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args);
 
