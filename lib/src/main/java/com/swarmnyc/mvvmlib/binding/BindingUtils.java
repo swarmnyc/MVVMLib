@@ -6,6 +6,7 @@ import android.databinding.tool.util.StringUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Pair;
 import android.view.View;
@@ -14,8 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.swarmnyc.mvvmlib.MvvmContext;
+import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.R;
+import com.swarmnyc.mvvmlib.adapter.DataBindingRecyclerViewAdapter;
 import com.swarmnyc.mvvmlib.binding.image.ImageCropType;
+import com.swarmnyc.mvvmlib.layout.BaseRecyclerViewLayout;
+import com.swarmnyc.mvvmlib.layout.GridRecyclerViewLayout;
+import com.swarmnyc.mvvmlib.layout.LinearRecyclerViewLayout;
 
 public class BindingUtils {
     @BindingConversion
@@ -150,5 +156,41 @@ public class BindingUtils {
     @BindingAdapter({"mvvm:drawable"})
     public static void bindDrawable(final ImageView view, final @DrawableRes int redId) {
         view.setImageResource(redId);
+    }
+
+//    @BindingAdapter({"mvvm:list", "mvvm:itemLayoutId"})
+//    public static void bindList(final RecyclerView view, final MvvmListViewModel listViewModel, final @LayoutRes
+//    int layoutId) {
+//        LinearRecyclerViewLayout layout = LinearRecyclerViewLayout.newInstance();
+//        layout.setViewLayout(view);
+//
+//        RecyclerView.Adapter adapter = new DataBindingRecyclerViewAdapter(
+//                view.getContext(), listViewModel, layoutId);
+//        view.setAdapter(adapter);
+//    }
+    @BindingAdapter({"mvvm:list", "mvvm:numColumns"})
+    public static void bindList(final RecyclerView view, final MvvmListViewModel listViewModel, final
+    int numColumns) {
+        BaseRecyclerViewLayout layout;
+        if (numColumns > 1) {
+            layout = new GridRecyclerViewLayout(numColumns);
+        } else {
+            layout = new LinearRecyclerViewLayout();
+        }
+        layout.setViewLayout(view);
+
+        RecyclerView.Adapter adapter = new DataBindingRecyclerViewAdapter(
+                view.getContext(), listViewModel, listViewModel.getItemLayoutId());
+        view.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"mvvm:list"})
+    public static void bindList(final RecyclerView view, final MvvmListViewModel listViewModel) {
+        LinearRecyclerViewLayout layout = new LinearRecyclerViewLayout();
+        layout.setViewLayout(view);
+
+        RecyclerView.Adapter adapter = new DataBindingRecyclerViewAdapter(
+                view.getContext(), listViewModel, listViewModel.getItemLayoutId());
+        view.setAdapter(adapter);
     }
 }
