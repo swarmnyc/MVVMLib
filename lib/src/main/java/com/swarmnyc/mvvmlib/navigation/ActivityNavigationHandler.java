@@ -45,4 +45,5 @@ public class ActivityNavigationHandler implements NavigationHandler {
             activity.startActivityForResult(intent, requestCode);
         }
     }
+
 }
