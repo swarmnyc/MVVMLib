@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.databinding.ViewDataBinding;
+import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import com.swarmnyc.mvvmlib.MvvmViewModel;
 public class DataBindingRecyclerViewAdapter extends RecyclerView.Adapter {
     private final LayoutInflater inflater;
 //    private final VM listViewModel;
-    private final ObservableArrayList<MvvmViewModel> viewModels = new ObservableArrayList<>();
+    private final ObservableArrayList<Parcelable> viewModels;
     @LayoutRes
     private final int layoutId;
 
@@ -26,7 +27,7 @@ public class DataBindingRecyclerViewAdapter extends RecyclerView.Adapter {
     {
         this.inflater = LayoutInflater.from( context );
 //        this.listViewModel = listViewModel;
-        this.viewModels.addAll( listViewModel.getItemCollection() );
+        this.viewModels = listViewModel.getItemCollection();
         this.layoutId = layoutId;
 
         viewModels.addOnListChangedCallback(new ListChangedCallbackForRecyclerView<MvvmViewModel>(this));
@@ -45,7 +46,7 @@ public class DataBindingRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         DataBindingViewHolder viewHolder = (DataBindingViewHolder) holder;
-        MvvmViewModel itemViewModel = this.viewModels.get( position );
+        Parcelable itemViewModel = this.viewModels.get( position );
         viewHolder.setData( itemViewModel );
     }
 
