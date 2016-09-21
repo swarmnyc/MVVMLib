@@ -13,14 +13,16 @@ import java.security.InvalidParameterException;
 public class DialogFragmentNavigationHandler implements NavigationHandler
 {
 	private final Class fragmentClass;
+	private boolean m_cancelable;
 
 
 	public <T extends Fragment> DialogFragmentNavigationHandler(
-		Class<T> fragmentClass
+		Class<T> fragmentClass, final boolean cancelable
 	)
 
 	{
 		this.fragmentClass = fragmentClass;
+		m_cancelable = cancelable;
 	}
 
 
@@ -48,7 +50,7 @@ public class DialogFragmentNavigationHandler implements NavigationHandler
 		try
 		{
 			dialogFragment = (DialogFragment) fragmentClass.newInstance();
-			dialogFragment.setCancelable( false );
+			dialogFragment.setCancelable( m_cancelable );
 		}
 		catch ( Exception e )
 		{
