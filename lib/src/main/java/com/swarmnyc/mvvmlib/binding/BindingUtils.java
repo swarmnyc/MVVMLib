@@ -24,6 +24,7 @@ import com.swarmnyc.mvvmlib.layout.GridRecyclerViewLayout;
 import com.swarmnyc.mvvmlib.layout.LinearRecyclerViewLayout;
 
 public class BindingUtils {
+
     @BindingConversion
     public static String convertBindableToString(BindableString bindableString) {
         return bindableString.get();
