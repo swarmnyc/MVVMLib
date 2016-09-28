@@ -6,6 +6,7 @@ import android.databinding.tool.util.StringUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Pair;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.swarmnyc.mvvmlib.MvvmContext;
 import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.R;
@@ -33,6 +33,8 @@ public class BindingUtils {
     public static boolean convertBindableToBoolean(BindableBoolean bindableBoolean) {
         return bindableBoolean.get();
     }
+
+
 
     @BindingConversion
     public static Uri convertStringToUri(BindableString string) {
@@ -69,6 +71,25 @@ public class BindingUtils {
             view.setVisibility(View.GONE);
         }
     }
+
+    @BindingAdapter( {"mvvm:refreshing"} )
+    public static void bindRefreshing( final SwipeRefreshLayout view, final boolean value )
+    {
+        view.setRefreshing( value );
+    }
+
+    @BindingAdapter({"mvvm:onRefresh"})
+    public static void bindOnRefresh(final SwipeRefreshLayout view, final Runnable runnable) {
+
+        view.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh()
+            {
+                runnable.run();
+            }
+        } );
+    }
+
 
     @BindingAdapter({"mvvm:text"})
     public static void bindEditText(EditText view, final BindableString observableString) {
