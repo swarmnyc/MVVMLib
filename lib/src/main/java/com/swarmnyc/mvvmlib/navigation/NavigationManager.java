@@ -9,6 +9,7 @@ import com.swarmnyc.mvvmlib.FragmentWrapper;
 public interface NavigationManager {
     void setMvvmContext(MvvmContext mvvmContext);
 
+    // TODO let' smake this the ViewModel class.
     boolean navigateTo(String path);
 
     boolean navigateTo(String path, Bundle args);
