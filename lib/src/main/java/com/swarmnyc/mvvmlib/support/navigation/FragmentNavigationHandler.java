@@ -88,7 +88,7 @@ public class FragmentNavigationHandler implements NavigationHandler {
         }
 
         if (requestCode != null) {
-            Fragment lastFragment = fragmentManager.findFragmentByTag(FTAG);
+            Fragment lastFragment = getLastFragment(fragmentManager);
             fragment.setTargetFragment(lastFragment, requestCode);
         }
 
@@ -112,4 +112,40 @@ public class FragmentNavigationHandler implements NavigationHandler {
         setArgs(args);
         fragment.setArguments(args);
     }
+
+    private Fragment getLastFragment(final FragmentManager supportFragmentManager)
+    {
+
+        Fragment fragment = null;
+
+        if ( supportFragmentManager.getBackStackEntryCount() > 0 )
+        {
+            final FragmentManager.BackStackEntry backStackEntryAt = supportFragmentManager.getBackStackEntryAt(
+                supportFragmentManager.getBackStackEntryCount() - 1 );
+
+
+            final Fragment fragmentByTag = supportFragmentManager.findFragmentByTag( backStackEntryAt.getName() );
+            if ( fragmentByTag instanceof Fragment )
+            {
+                fragment = (Fragment) fragmentByTag;
+            }
+        }
+        else if ( supportFragmentManager.getFragments().size() == 1 )
+        {
+            if ( supportFragmentManager.getFragments().get( 0 ) instanceof Fragment )
+            {
+                fragment = (Fragment) supportFragmentManager.getFragments().get( 0 );
+            }
+        }
+
+        if (null != fragment && fragment.getChildFragmentManager().getBackStackEntryCount() > 0)
+        {
+            fragment = getLastFragment( fragment.getChildFragmentManager() );
+        }
+
+        return fragment;
+
+
+    }
+
 }

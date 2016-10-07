@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.swarmnyc.mvvmlib.navigation.DefaultNavigationManager;
+import com.swarmnyc.mvvmlib.navigation.DefaultNotificationProvider;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
 public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
@@ -29,6 +30,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends Activity {
         super.onCreate(savedInstanceState);
         mvvmContext = new MvvmContext(this);
         mvvmContext.setNavigationManager(createNavigationManager());
+        mvvmContext.setNotificationProvider( new DefaultNotificationProvider( this ) );
         buildNavigation(mvvmContext.getNavigationManager());
 
         viewModelEnabled = ViewModelUtils.assignFromViewModel(this.getClass());

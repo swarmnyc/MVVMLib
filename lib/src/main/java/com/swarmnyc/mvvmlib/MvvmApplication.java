@@ -3,6 +3,7 @@ package com.swarmnyc.mvvmlib;
 import android.app.Application;
 
 import com.swarmnyc.mvvmlib.navigation.DefaultNavigationManager;
+import com.swarmnyc.mvvmlib.navigation.DefaultNotificationProvider;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
 public class MvvmApplication extends Application {
@@ -13,6 +14,7 @@ public class MvvmApplication extends Application {
         super.onCreate();
         mvvmContext = new MvvmContext(this);
         mvvmContext.setNavigationManager(createNavigationManager());
+        mvvmContext.setNotificationProvider( new DefaultNotificationProvider( this ) );
         buildNavigation(mvvmContext.getNavigationManager());
     }
 

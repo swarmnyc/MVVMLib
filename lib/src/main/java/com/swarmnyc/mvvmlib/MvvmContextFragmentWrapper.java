@@ -3,6 +3,7 @@ package com.swarmnyc.mvvmlib;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.swarmnyc.mvvmlib.navigation.INotificationProvider;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
 public class MvvmContextFragmentWrapper extends MvvmContext {
@@ -22,6 +23,9 @@ public class MvvmContextFragmentWrapper extends MvvmContext {
             return navigationManager;
         }
     }
+
+    @Override
+    public INotificationProvider getNotificationProvider() {return parentContext.getNotificationProvider();}
 
     @Override
     public void close(int result, Bundle args) {

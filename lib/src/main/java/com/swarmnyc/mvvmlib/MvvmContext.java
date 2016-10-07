@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.swarmnyc.mvvmlib.binding.image.GlideImageBinder;
 import com.swarmnyc.mvvmlib.binding.image.ImageBinder;
+import com.swarmnyc.mvvmlib.navigation.INotificationProvider;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
 import java.security.InvalidParameterException;
@@ -40,6 +41,7 @@ public class MvvmContext
 	//</editor-fold>
 
 	protected NavigationManager navigationManager;
+	protected INotificationProvider m_notificationProvider;
 	protected Context androidContext;
 	protected ImageBinder imageBinder;
 	protected Object dataStore;
@@ -100,6 +102,15 @@ public class MvvmContext
 		this.navigationManager.setMvvmContext( this );
 	}
 
+	public INotificationProvider getNotificationProvider()
+	{
+		return m_notificationProvider;
+	}
+
+	public void setNotificationProvider( final INotificationProvider notificationProvider )
+	{
+		m_notificationProvider = notificationProvider;
+	}
 
 	/**
 	 * Get a image binder, default is GlideImageBinder

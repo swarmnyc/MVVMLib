@@ -15,6 +15,7 @@ import com.swarmnyc.mvvmlib.MvvmContext;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
 import com.swarmnyc.mvvmlib.ViewModelUtils;
 import com.swarmnyc.mvvmlib.navigation.DefaultNavigationManager;
+import com.swarmnyc.mvvmlib.navigation.DefaultNotificationProvider;
 import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 
 public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatActivity {
@@ -34,6 +35,7 @@ public abstract class MvvmActivity<T extends MvvmViewModel> extends AppCompatAct
         super.onCreate(savedInstanceState);
         mvvmContext = new MvvmContext(this);
         mvvmContext.setNavigationManager(createNavigationManager());
+        mvvmContext.setNotificationProvider( new DefaultNotificationProvider( this ) );
         buildNavigation(mvvmContext.getNavigationManager());
 
         viewModelEnabled = ViewModelUtils.assignFromViewModel(this.getClass());
