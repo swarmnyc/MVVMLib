@@ -163,9 +163,9 @@ public class MvvmContext
 	 * @param <T> Your data store type
 	 * @return Data store object
 	 */
-	public <T> T resolve(final String key)
+	public <T> T resolve( final String key )
 	{
-		if (!m_dataStore.containsKey( key ))
+		if ( !m_dataStore.containsKey( key ) )
 		{
 			return null;
 		}
