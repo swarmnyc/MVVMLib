@@ -13,6 +13,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -30,4 +31,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+}
+
+// Workaround to do Espresso test on a physical device: https://code.google.com/p/android/issues/detail?id=182715
+tasks.withType(com.android.build.gradle.internal.tasks.databinding.DataBindingExportBuildInfoTask) { task ->
+    if (task.name.endsWith("AndroidTest")) {
+        task.finalizedBy(tasks.create("${task.name}Workaround") << {
+            task.output.deleteDir()
+        })
+    }
 }
