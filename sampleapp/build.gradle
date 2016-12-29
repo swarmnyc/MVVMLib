@@ -16,6 +16,10 @@ android {
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "API_BASE_URL", "\"https://qa-ads.apptalks.com/apptalks/api/2.0/\""
+//            buildConfigField "String", "API_BASE_URL", "\"http://192.168.17.41:8080/apptalks/api/2.0/\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -25,12 +29,29 @@ android {
     }
 }
 
+android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
 dependencies {
     compile project(':lib')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:support-v4:24.2.0'
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.3'
+    compile 'com.github.jasminb:jsonapi-converter:0.4'
+
+    testCompile 'com.jayway.awaitility:awaitility:1.7.0'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }

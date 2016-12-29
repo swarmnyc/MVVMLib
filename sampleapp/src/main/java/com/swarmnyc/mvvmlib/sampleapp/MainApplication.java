@@ -8,6 +8,7 @@ import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 import com.swarmnyc.mvvmlib.sampleapp.ui.BindingActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.FirstActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.OneFragmentActivity;
+import com.swarmnyc.mvvmlib.sampleapp.ui.RecyclerViewActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.SecondActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.ThirdActivity;
 import com.swarmnyc.mvvmlib.sampleapp.ui.TwoFragmentActivity;
@@ -30,5 +31,6 @@ public class MainApplication extends MvvmApplication {
         manager.add("OneFragment", new ActivityNavigationHandler(OneFragmentActivity.class));
         manager.add("TwoFragment", new ActivityNavigationHandler(TwoFragmentActivity.class));
         manager.add("Binding", new ActivityNavigationHandler(BindingActivity.class));
+        manager.add("RecyclerView", new ActivityNavigationHandler(RecyclerViewActivity.class));
     }
 }

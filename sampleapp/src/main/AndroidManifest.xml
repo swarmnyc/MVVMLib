@@ -30,8 +30,8 @@
         <activity android:name=".ui.FirstActivity"/>
         <activity android:name=".ui.OneFragmentActivity"/>
         <activity android:name=".ui.TwoFragmentActivity"/>
-        <activity android:name=".ui.BindingActivity">
-        </activity>
+        <activity android:name=".ui.BindingActivity"/>
+        <activity android:name=".ui.RecyclerViewActivity"/>
     </application>
 
 </manifest>
