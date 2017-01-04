@@ -4,12 +4,19 @@ import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.agera.ActivationHandler;
+import com.google.android.agera.Observable;
+import com.google.android.agera.Observables;
+import com.google.android.agera.Updatable;
+import com.google.android.agera.UpdateDispatcher;
+
 /**
  * Two way bindable string, ObservableField<String> is one way.
  * because the official library doesn't support two way binding, so this class is for it.
  */
-public class BindableString extends BaseObservable implements Parcelable {
+public class BindableString extends BaseObservable implements Parcelable, Observable {
     private String value;
+    private final UpdateDispatcher updateDispatcher = Observables.updateDispatcher();;
 
     public BindableString() {
     }
@@ -26,6 +33,7 @@ public class BindableString extends BaseObservable implements Parcelable {
         if ((this.value == null && value != null) || (this.value != null && !this.value.equals(value))) {
             this.value = value;
             notifyChange();
+            updateDispatcher.update();
         }
     }
 
@@ -65,4 +73,14 @@ public class BindableString extends BaseObservable implements Parcelable {
             return new BindableString[size];
         }
     };
+
+    @Override
+    public void addUpdatable(Updatable updatable) {
+        updateDispatcher.addUpdatable(updatable);
+    }
+
+    @Override
+    public void removeUpdatable(Updatable updatable) {
+        updateDispatcher.removeUpdatable(updatable);
+    }
 }

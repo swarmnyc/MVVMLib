@@ -2,18 +2,27 @@ package com.swarmnyc.mvvmlib.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.tool.util.StringUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.agera.MutableRepository;
+import com.google.android.agera.Observable;
+import com.google.android.agera.Updatable;
+import com.google.common.util.concurrent.Runnables;
 import com.swarmnyc.mvvmlib.MvvmContext;
 import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.R;
@@ -90,7 +99,6 @@ public class BindingUtils {
             }
         } );
     }
-
 
     @BindingAdapter({"mvvm:text"})
     public static void bindEditText(EditText view, final BindableString observableString) {
@@ -214,5 +222,27 @@ public class BindingUtils {
         RecyclerView.Adapter adapter = new DataBindingRecyclerViewAdapter(
                 view.getContext(), listViewModel, listViewModel.getItemLayoutId());
         view.setAdapter(adapter);
+    }
+
+    @BindingAdapter({"mvvm:listData", "mvvm:listItemView"})
+    public static void bindList(final RecyclerView view, final ObservableArrayList listViewModel, @LayoutRes final
+    int viewLayoutId) {
+        LinearRecyclerViewLayout layout = new LinearRecyclerViewLayout();
+        layout.setViewLayout(view);
+
+        RecyclerView.Adapter adapter = new DataBindingRecyclerViewAdapter(
+                view.getContext(), listViewModel, viewLayoutId);
+        view.setAdapter(adapter);
+
+    }
+
+    @BindingAdapter({"mvvm:onClick"})
+    public static void bindOnClick(final View view, final Runnable runnable) {
+        view.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                runnable.run();
+            }
+        });
+
     }
 }

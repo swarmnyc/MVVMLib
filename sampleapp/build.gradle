@@ -51,6 +51,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.3'
     compile 'com.github.jasminb:jsonapi-converter:0.4'
 
+    compile 'com.google.android.agera:agera:1.2.0'
+
     testCompile 'com.jayway.awaitility:awaitility:1.7.0'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

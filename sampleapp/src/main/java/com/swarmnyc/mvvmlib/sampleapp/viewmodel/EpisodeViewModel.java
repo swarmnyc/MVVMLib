@@ -31,7 +31,7 @@ public class EpisodeViewModel extends MvvmViewModel {
     Episode mEpisode;
 
     public EpisodeViewModel(final Episode episode) {
-        Log.i(TAG, "EpisodeViewModel: " + episode);
+//        Log.i(TAG, "EpisodeViewModel: " + episode);
         mEpisode = episode;
     }
 
@@ -40,7 +40,7 @@ public class EpisodeViewModel extends MvvmViewModel {
     }
 
     public String getTitle() {
-        Log.i(TAG, "getTitle: " + mEpisode.title);
+//        Log.i(TAG, "getTitle: " + mEpisode.title);
         return mEpisode.title;
     }
 
@@ -56,7 +56,7 @@ public class EpisodeViewModel extends MvvmViewModel {
     }
 
     public Uri getImageUri() {
-        if (mEpisode.show.imgUrl == null) return mDefaultPic;
+        if (mEpisode.show == null || mEpisode.show.imgUrl == null) return mDefaultPic;
 
         return Uri.parse(mEpisode.show.imgUrl);
     }

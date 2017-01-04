@@ -35,6 +35,14 @@ public class DataBindingRecyclerViewAdapter extends RecyclerView.Adapter {
 //                .addOnListChangedCallback(new ListChangedCallbackForRecyclerView<EmojiCollection>(this));
     }
 
+    public DataBindingRecyclerViewAdapter(Context context, ObservableArrayList listViewModel, int itemViewLayoutId) {
+        this.inflater = LayoutInflater.from( context );
+        this.viewModels = listViewModel;
+        this.layoutId = itemViewLayoutId;
+
+        viewModels.addOnListChangedCallback(new ListChangedCallbackForRecyclerView<MvvmViewModel>(this));
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         DataBindingViewHolder bindingViewHolder;

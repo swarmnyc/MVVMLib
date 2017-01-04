@@ -12,32 +12,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Swipe down to reload"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/layout_swipe"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:text="more"
+            mvvm:onClick='@{viewmodel.refresh}'/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewmodel.description}" />
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search episode"
+            android:singleLine="true"
+            android:imeOptions="actionGo"
+            android:layout_gravity="center"
+            mvvm:text="@{viewmodel.searchKeyword}"
+            />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            mvvm:onRefresh="@{viewmodel.refresh}"
-            mvvm:refreshing="@{viewmodel.isLoading}">
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                mvvm:list="@{viewmodel}" />
+                mvvm:onRefresh="@{viewmodel.refresh}"
+                mvvm:refreshing="@{viewmodel.isLoading}">
 
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    mvvm:listData="@{viewmodel.allEpisodes}"
+                    mvvm:listItemView="@{@layout/item_episode}" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    mvvm:listData="@{viewmodel.filteredEpisodes}"
+                    mvvm:listItemView="@{@layout/item_episode}" />
+
+                </LinearLayout>
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>
