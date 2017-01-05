@@ -19,8 +19,11 @@ public class LinearRecyclerViewLayout implements BaseRecyclerViewLayout {
         final LinearLayoutManager layout = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,
                 false);
         view.setLayoutManager(layout);
-        view.addItemDecoration(new HorizontalDividerItemDecoration.Builder(context).color(
-                R.color.silver).sizeResId(R.dimen.divider).build());
+        if (view.getTag(R.id.itemDecoration) == null) {
+            view.addItemDecoration(new HorizontalDividerItemDecoration.Builder(context).color(
+                    R.color.silver).sizeResId(R.dimen.divider).build());
+            view.setTag(R.id.itemDecoration, true);
+        }
     }
 
 }

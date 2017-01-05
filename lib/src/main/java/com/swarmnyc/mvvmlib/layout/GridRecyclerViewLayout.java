@@ -32,9 +32,12 @@ public class GridRecyclerViewLayout implements BaseRecyclerViewLayout {
         Context context = view.getContext();
         GridLayoutManager layout = new GridLayoutManager( context, numColumns, LinearLayoutManager.VERTICAL, false );
         view.setLayoutManager(layout);
-        view.addItemDecoration( new HorizontalDividerItemDecoration.Builder( context ).colorResId( android.R.color.transparent ).marginResId( R.dimen.space_0_5x )
-                .build() );
-        view.addItemDecoration( new VerticalDividerItemDecoration.Builder( context ).colorResId( android.R.color.transparent ).marginResId( R.dimen.space_0_5x )
-                .build() );
+        if (view.getTag(R.id.itemDecoration) == null) {
+            view.addItemDecoration(new HorizontalDividerItemDecoration.Builder(context).colorResId(android.R.color.transparent).marginResId(R.dimen.space_0_5x)
+                    .build());
+            view.addItemDecoration(new VerticalDividerItemDecoration.Builder(context).colorResId(android.R.color.transparent).marginResId(R.dimen.space_0_5x)
+                    .build());
+            view.setTag(R.id.itemDecoration, true);
+        }
     }
 }
