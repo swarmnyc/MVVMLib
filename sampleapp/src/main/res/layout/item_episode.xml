@@ -4,6 +4,7 @@
 
     <data>
 
+        <import alias="CropType" type="com.swarmnyc.mvvmlib.binding.image.ImageCropType"/>
         <variable
             name="viewmodel"
             type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.EpisodeViewModel" />
@@ -15,9 +16,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="64dp"
-            mvvm:image="@{viewmodel.avatarUri}"/>
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            mvvm:image="@{viewmodel.imageUri}"
+            mvvm:imageCrop="@{CropType.Round}"
+            />
 
         <TextView
             android:layout_width="0dp"
@@ -34,7 +37,7 @@
             android:layout_width="32dp"
             android:layout_height="64dp"
             android:visibility="gone"
-            mvvm:image="@{viewmodel.imageUri}"/>
+            mvvm:image="@{viewmodel.avatarUri}"/>
 
     </LinearLayout>
 </layout>

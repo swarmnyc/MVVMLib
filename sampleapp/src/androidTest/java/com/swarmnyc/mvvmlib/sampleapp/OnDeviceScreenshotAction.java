@@ -31,11 +31,14 @@ public final class OnDeviceScreenshotAction implements ViewAction {
     private final String tag;
     private final String testClass;
     private final String testMethod;
+    private final String testLine;
 
-    public OnDeviceScreenshotAction(String tag, String testClass, String testMethod) {
-        this.tag = tag;
+    public OnDeviceScreenshotAction(String tag, String testClass, String testMethod, String testLine) {
+        if (tag == null) this.tag="";
+        else this.tag = tag;
         this.testClass = testClass;
         this.testMethod = testMethod;
+        this.testLine = testLine;
     }
 
     @Override
@@ -48,16 +51,16 @@ public final class OnDeviceScreenshotAction implements ViewAction {
     }
 
     @Override public void perform(UiController uiController, View view) {
-        takeScreenshot(tag, getActivity(view));
+        takeScreenshot(testMethod, String.format("%s_%s", testLine, tag), getActivity(view));
     }
 
-    public static void takeScreenshot(String name, Activity activity) {
+    public static void takeScreenshot(String folder, String name, Activity activity) {
 
         // In Testdroid Cloud, taken screenshots are always stored
         // under /test-screenshots/ folder and this ensures those screenshots
         // be shown under Test Results
         String path =
-                Environment.getExternalStorageDirectory().getAbsolutePath() + "/test_screenshot/";
+                Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + folder + File.separator;
 
         View scrView = activity.getWindow().getDecorView().getRootView();
         scrView.setDrawingCacheEnabled(true);
@@ -121,6 +124,7 @@ public final class OnDeviceScreenshotAction implements ViewAction {
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         String testClass = trace[3].getClassName();
         String testMethod = trace[3].getMethodName();
-        onView(isRoot()).perform(new OnDeviceScreenshotAction(tag, testClass, testMethod));
+        String testLine = Integer.toString(trace[3].getLineNumber());
+        onView(isRoot()).perform(new OnDeviceScreenshotAction(tag, testClass, testMethod, testLine));
     }
 }

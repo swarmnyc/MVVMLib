@@ -50,7 +50,7 @@ public class EpisodeViewModel extends MvvmViewModel {
     }
 
     public Uri getAvatarUri() {
-        if (mEpisode.user.profilePictureUrl == null) return mDefaultPic;
+        if (mEpisode.user == null || mEpisode.user.profilePictureUrl == null) return mDefaultPic;
 
         return Uri.parse(mEpisode.user.profilePictureUrl);
     }
