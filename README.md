@@ -9,25 +9,7 @@ Getting Started
 
 Gradle:
 ```groovy
-repositories {
-    maven {
-        url "https://mymavenrepo.com/repo/0kxOoxZWJLwuSTB03yGy/" //swarm repo
-    }
-}
-
-compile 'com.swarmnyc:mvvmlib:0.2@aar'
-```
-
-# Local lib install
-
-```groovy
-repositories {
-    maven {
-        mavenLocal()
-    }
-}
-
-compile 'com.swarmnyc:mvvmlib:0.4.7-SNAPSHOT@aar'
+compile 'com.swarmnyc:mvvmlib:0.4.20'
 ```
 
 MVVMLib requires at minimum Android Studio 1.3 and later.
