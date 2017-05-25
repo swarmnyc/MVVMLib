@@ -2,32 +2,32 @@ package com.swarmnyc.mvvmlib.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import com.swarmnyc.mvvmlib.MvvmContext;
 import com.swarmnyc.mvvmlib.FragmentWrapper;
+import com.swarmnyc.mvvmlib.MvvmContext;
 
-public interface NavigationManager {
-    void setMvvmContext(MvvmContext mvvmContext);
+public interface NavigationManager
+{
+	void setMvvmContext( MvvmContext mvvmContext );
 
-    // TODO let' smake this the ViewModel class.
-    boolean navigateTo(String path);
+	// TODO let' smake this the ViewModel class.
+	boolean navigateTo( Class path );
 
-    boolean navigateTo(String path, Bundle args);
+	boolean navigateTo( Class path, Bundle args );
 
-    boolean navigateTo(Context context, String path, Bundle args);
+	boolean navigateTo( Context context, Class path, Bundle args );
 
-    void navigateBack();
+	void navigateBack();
 
-    void dismiss( final String lowerCasePath );
+	void dismiss( final Class lowerCasePath );
 
-    void closeActivity( Integer result, Bundle args);
+	void closeActivity( Integer result, Bundle args );
 
-    void closeFragment(FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args);
+	void closeFragment( FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args );
 
-    NavigationManager add(String path, NavigationHandler handler);
+	NavigationManager add( Class vmClass, NavigationHandler handler );
 
-    void remove(String path);
+	void remove( Class vmClass );
 
-    void linkTo(String url);
+	void linkTo( String url );
 }
 

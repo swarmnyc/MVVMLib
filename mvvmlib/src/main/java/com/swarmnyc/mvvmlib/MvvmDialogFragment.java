@@ -19,9 +19,7 @@ public abstract class MvvmDialogFragment<T extends MvvmViewModel> extends Dialog
 
 	@Override
 	public void onCreate(
-		@Nullable
-		Bundle savedInstanceState
-	)
+		@Nullable Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
 		mvvmContext = new MvvmContextFragmentWrapper( this, MvvmContext.getContext( this.getActivity() ) );
@@ -58,8 +56,7 @@ public abstract class MvvmDialogFragment<T extends MvvmViewModel> extends Dialog
 			viewDataBinding = DataBindingUtil.inflate( getActivity().getLayoutInflater(),
 			                                           getLayoutResourceId(),
 			                                           container,
-			                                           false
-			);
+			                                           false );
 
 			if ( viewDataBinding == null )
 			{
@@ -108,12 +105,12 @@ public abstract class MvvmDialogFragment<T extends MvvmViewModel> extends Dialog
 	{
 	}
 
-	protected void navigateTo( String path )
+	protected void navigateTo( Class path )
 	{
 		mvvmContext.getNavigationManager().navigateTo( path );
 	}
 
-	protected void navigateTo( String path, Bundle bundle )
+	protected void navigateTo( Class path, Bundle bundle )
 	{
 		mvvmContext.getNavigationManager().navigateTo( path, bundle );
 	}

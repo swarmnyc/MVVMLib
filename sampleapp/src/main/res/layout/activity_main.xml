@@ -5,42 +5,42 @@
     <data>
 
         <variable
-            name="viewmodel"
-            type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.MainViewModel"/>
+                name="viewmodel"
+                type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.MainViewModel"/>
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Activity Demo"
-            mvvm:navTo='@{"First"}'/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activity Demo"
+                mvvm:navTo='@{ FirstViewModel.class }'/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick='@{()-> viewmodel.navToOneFragment()}'
-            android:text="One Fragment Demo"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick='@{()-> viewmodel.navToOneFragment()}'
+                android:text="One Fragment Demo"/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            mvvm:navTo='@{"TwoFragment"}'
-            android:text="Two Fragment Demo"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mvvm:navTo='@{"TwoFragment"}'
+                android:text="Two Fragment Demo"/>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            mvvm:navTo='@{"Binding"}'
-            android:text="Binding Demo"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                mvvm:navTo='@{ BindingViewModel.class }'
+                android:text="Binding Demo"/>
     </LinearLayout>
 </layout>
 

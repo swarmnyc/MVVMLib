@@ -1,9 +1,6 @@
 package com.swarmnyc.mvvmlib.navigation;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,7 +15,7 @@ import java.util.HashMap;
 
 public class DefaultNavigationManager implements NavigationManager
 {
-	private HashMap<String, NavigationHandler> maps = new HashMap<>();
+	private HashMap<Class, NavigationHandler> maps = new HashMap<>();
 	private MvvmContext mvvmAppContext;
 	private MvvmContext mvvmContext;
 
@@ -34,26 +31,25 @@ public class DefaultNavigationManager implements NavigationManager
 	}
 
 	@Override
-	public boolean navigateTo( String path )
+	public boolean navigateTo( Class path )
 	{
 		return navigateTo( mvvmContext.getAndroidContext(), path, null );
 	}
 
 	@Override
-	public boolean navigateTo( String path, Bundle args )
+	public boolean navigateTo( Class path, Bundle args )
 	{
 		return navigateTo( mvvmContext.getAndroidContext(), path, args );
 	}
 
 	@Override
-	public boolean navigateTo( Context context, String path, Bundle args )
+	public boolean navigateTo( Context context, Class path, Bundle args )
 	{
-		if ( path == null || path.isEmpty() )
+		if ( path == null )
 		{ throw new InvalidParameterException( "Path can't be null or empty" ); }
 
-		String lowerCasePath = path.toLowerCase();
 
-		NavigationHandler navigationHandler = maps.get( lowerCasePath );
+		NavigationHandler navigationHandler = maps.get( path );
 
 		if ( navigationHandler == null )
 		{
@@ -86,18 +82,18 @@ public class DefaultNavigationManager implements NavigationManager
 	}
 
 	@Override
-	public void dismiss( final String path )
+	public void dismiss( final Class path )
 	{
 		Context context = mvvmContext.getAndroidContext();
 		if ( context instanceof Activity )
 		{
 			Activity activity = (Activity) context;
 
-			NavigationHandler navigationHandler = maps.get( path.toLowerCase() );
+			NavigationHandler navigationHandler = maps.get( path );
 
-			if (navigationHandler instanceof DialogFragmentNavigationHandler)
+			if ( navigationHandler instanceof DialogFragmentNavigationHandler )
 			{
-				((DialogFragmentNavigationHandler) navigationHandler).dismiss( context, path );
+				( (DialogFragmentNavigationHandler) navigationHandler ).dismiss( context );
 			}
 
 		}
@@ -141,29 +137,28 @@ public class DefaultNavigationManager implements NavigationManager
 	}
 
 	@Override
-	public NavigationManager add( String path, NavigationHandler handler )
+	public NavigationManager add( Class videModelClass, NavigationHandler handler )
 	{
-		if ( path == null || path.isEmpty() )
+		if ( videModelClass == null )
 		{ throw new InvalidParameterException( "Path can't be null or empty" ); }
 
 		if ( handler == null )
 		{ throw new InvalidParameterException( "NavigationHandler can't be null or empty" ); }
 
-		String lowerCasePath = path.toLowerCase();
 
-		maps.put( lowerCasePath, handler );
+		maps.put( videModelClass, handler );
 
 		return this;
 	}
 
+
 	@Override
-	public void remove( String path )
+	public void remove( Class vmClass )
 	{
-		if ( path == null || path.isEmpty() )
+		if ( vmClass == null )
 		{ throw new InvalidParameterException( "Path can't be null or empty" ); }
 
-		String lowerCasePath = path.toLowerCase();
-		maps.remove( lowerCasePath );
+		maps.remove( vmClass );
 	}
 
 	@Override
