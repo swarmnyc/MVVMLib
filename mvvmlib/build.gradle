@@ -1,5 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
+
+version = '0.5' // Maven Property
+ext {
+    bintrayPackageName = "MVVMLib"
+}
 
 android {
     compileSdkVersion 24
@@ -11,7 +15,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 24
         versionCode 5
-        versionName "0.4.10"
+        versionName version
     }
     buildTypes {
         release {
@@ -22,12 +26,12 @@ android {
     lintOptions {
         abortOnError false
     }
-
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+
     //Image
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:appcompat-v7:24.2.0'
@@ -36,25 +40,4 @@ dependencies {
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 }
 
-// To publish to maven local execute "gradle clean build publishToMavenLocal"
-// To publish to nexus execute "gradle clean build publish"
-//Publish
-publishing {
-    repositories {
-        maven {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            url properties.get("mavenPublishUrl")
-        }
-    }
-
-    publications {
-        maven(MavenPublication) {
-
-            groupId 'com.swarmnyc'
-            artifactId 'mvvmlib'
-            version project.android.defaultConfig.versionName
-            artifact("$buildDir/outputs/aar/lib-release.aar")
-        }
-    }
-}
+apply from: "https://s3.amazonaws.com/swarm-dev/swarm-deploy.gradle"
