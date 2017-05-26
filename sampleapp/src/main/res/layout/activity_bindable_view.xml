@@ -31,9 +31,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bind Custom FrameLayout"/>
+            android:text="Binding Custom FrameLayout"/>
 
         <com.swarmnyc.mvvmlib.sampleapp.ui.view.MyFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            mvvm:viewModel="@{viewmodel.subViewModel}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Binding Custom View"/>
+
+        <com.swarmnyc.mvvmlib.sampleapp.ui.view.MyView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             mvvm:viewModel="@{viewmodel.subViewModel}"/>

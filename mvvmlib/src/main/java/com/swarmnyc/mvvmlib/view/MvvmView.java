@@ -37,5 +37,6 @@ public class MvvmView<T extends MvvmViewModel> extends View implements BindableV
     @Override
     public void setViewModel(T viewModel) {
         this.viewModel = viewModel;
+        this.invalidate();
     }
 }
