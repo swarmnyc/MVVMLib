@@ -4,6 +4,7 @@
     >
 
     <data>
+        <import type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.FirstViewModel"/>
 
         <variable
             name="viewmodel"
@@ -47,14 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Navigate to Third"
-            mvvm:navTo='@{"Third"}'/>
+            />
+        <!--mvvm:navTo='@{ ThirdViewModel.class }'-->
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Navigate to First"
-            mvvm:navTo='@{"First"}'/>
-
+            />
+        <!--mvvm:navTo='@{FirstViewModel.class}'-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

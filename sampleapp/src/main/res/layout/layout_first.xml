@@ -31,13 +31,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Navigate To Second Layout by Adapter"
-            mvvm:navTo='@{"Second"}'
-            mvvm:navArg='@{viewmodel.dataToPass}'/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:onClick='@{()-> viewmodel.navToThird()}'
             android:text="Navigate To Third Layout by ViewModel"/>
 

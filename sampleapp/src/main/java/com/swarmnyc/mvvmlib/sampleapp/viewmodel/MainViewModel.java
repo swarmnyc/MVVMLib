@@ -19,7 +19,7 @@ public class MainViewModel extends MvvmViewModel {
     }
 
     public void navToOneFragment() {
-        navigateTo("OneFragment");
+        navigateTo(FirstViewModel.class);
     }
 
     protected MainViewModel(Parcel in) {

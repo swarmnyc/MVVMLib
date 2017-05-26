@@ -17,8 +17,7 @@ public class DialogFragmentNavigationHandler implements NavigationHandler
 
 
 	public <T extends Fragment> DialogFragmentNavigationHandler(
-		Class<T> fragmentClass, final boolean cancelable
-	)
+		Class<T> fragmentClass, final boolean cancelable )
 
 	{
 		this.fragmentClass = fragmentClass;
@@ -68,7 +67,7 @@ public class DialogFragmentNavigationHandler implements NavigationHandler
 		dialogFragment.setArguments( args );
 	}
 
-	public void dismiss( Context context, final String tag )
+	public void dismiss( Context context )
 	{
 		if ( !( context instanceof Activity ) )
 		{

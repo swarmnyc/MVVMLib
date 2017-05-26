@@ -27,7 +27,7 @@ public class FirstViewModel extends MvvmViewModel {
     public void navToThird() {
         Bundle args = new Bundle();
         args.putString("data", getDataToPass().get());
-        getContext().getNavigationManager().navigateTo("Third", args);
+        getContext().getNavigationManager().navigateTo(ThirdViewModel.class, args);
     }
 
     @Override
