@@ -11,135 +11,111 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.swarmnyc.mvvmlib.*;
 
-public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment implements FragmentWrapper
-{
-	private T viewModel;
-	private MvvmContext mvvmContext;
-	private boolean viewModelEnabled;
-	private ViewDataBinding viewDataBinding;
+public abstract class MvvmFragment<T extends MvvmViewModel> extends Fragment implements FragmentWrapper, IMvvmFragment {
+    private T viewModel;
+    private MvvmContext mvvmContext;
+    private boolean viewModelEnabled;
+    private ViewDataBinding viewDataBinding;
 
-	@Override
-	public void onCreate( @Nullable Bundle savedInstanceState )
-	{
-		super.onCreate( savedInstanceState );
-		mvvmContext = new MvvmContextFragmentWrapper( this, MvvmContext.getContext( this.getActivity() ) );
-		viewModelEnabled = ViewModelUtils.assignFromViewModel( this.getClass() );
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mvvmContext = new MvvmContextFragmentWrapper(this, MvvmContext.getContext(this.getActivity()));
+        viewModelEnabled = ViewModelUtils.assignFromViewModel(this.getClass());
 
-		if ( viewModelEnabled )
-		{
-			if ( savedInstanceState == null )
-			{
-				viewModel = (T) ViewModelUtils.createViewModel( this.getClass() );
-			}
-			else
-			{
-				viewModel = savedInstanceState.getParcelable( Keys.VIEW_MODEL );
-			}
+        if (viewModelEnabled) {
+            if (savedInstanceState == null) {
+                viewModel = (T) ViewModelUtils.createViewModel(this.getClass());
+            } else {
+                viewModel = savedInstanceState.getParcelable(Keys.VIEW_MODEL);
+            }
 
-			viewModel.setContext( mvvmContext );
+            viewModel.setContext(mvvmContext);
 
-			Bundle args = getArguments();
+            Bundle args = getArguments();
 
-			viewModel.onInit( args );
-			onInit( viewModel, args );
-		}
-	}
+            viewModel.onInit(args);
+            onInit(viewModel, args);
+        }
+    }
 
-	@Nullable
-	@Override
-	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
-	{
-		if ( viewModelEnabled )
-		{
-			viewDataBinding = DataBindingUtil.inflate(
-				getActivity().getLayoutInflater(),
-				getLayoutResourceId(),
-				container,
-				false );
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (viewModelEnabled) {
+            viewDataBinding = DataBindingUtil.inflate(
+                    getActivity().getLayoutInflater(),
+                    getLayoutResourceId(),
+                    container,
+                    false);
 
-			if ( viewDataBinding == null )
-			{
-				throw new RuntimeException( Errors.NO_VIEW_DATA_BINDING );
-			}
+            if (viewDataBinding == null) {
+                throw new RuntimeException(Errors.NO_VIEW_DATA_BINDING);
+            }
 
-			viewDataBinding.setVariable( com.swarmnyc.mvvmlib.BR.viewmodel, viewModel );
+            viewDataBinding.setVariable(com.swarmnyc.mvvmlib.BR.viewmodel, viewModel);
 
-			return viewDataBinding.getRoot();
-		}
-		else
-		{
-			return inflater.inflate( getLayoutResourceId(), container, false );
-		}
-	}
+            return viewDataBinding.getRoot();
+        } else {
+            return inflater.inflate(getLayoutResourceId(), container, false);
+        }
+    }
 
-	@Override
-	public void onViewCreated( View view, @Nullable Bundle savedInstanceState )
-	{
-		styleActionBar( getSupportActivity().getSupportActionBar() );
-	}
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        styleActionBar(getSupportActivity().getSupportActionBar());
+    }
 
-	protected void styleActionBar( ActionBar actionBar )
-	{
-	}
+    protected void styleActionBar(ActionBar actionBar) {
+    }
 
-	@Override
-	public void onSaveInstanceState( Bundle outState )
-	{
-		if ( viewModelEnabled )
-		{
-			outState.putParcelable( Keys.VIEW_MODEL, viewModel );
-		}
-	}
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (viewModelEnabled) {
+            outState.putParcelable(Keys.VIEW_MODEL, viewModel);
+        }
+    }
 
-	public AppCompatActivity getSupportActivity()
-	{
-		return (AppCompatActivity) this.getActivity();
-	}
+    public AppCompatActivity getSupportActivity() {
+        return (AppCompatActivity) this.getActivity();
+    }
 
-	protected MvvmContext getMvvmContext()
-	{
-		return mvvmContext;
-	}
+    protected MvvmContext getMvvmContext() {
+        return mvvmContext;
+    }
 
-	public T getViewModel()
-	{
-		return viewModel;
-	}
+    public T getViewModel() {
+        return viewModel;
+    }
 
-	protected <T extends ViewDataBinding> T getViewDataBinding()
-	{
-		return (T) viewDataBinding;
-	}
+    protected <T extends ViewDataBinding> T getViewDataBinding() {
+        return (T) viewDataBinding;
+    }
 
-	@LayoutRes
-	protected abstract int getLayoutResourceId();
+    @LayoutRes
+    protected abstract int getLayoutResourceId();
 
-	protected void onInit( T viewModel, Bundle args )
-	{
-	}
+    protected void onInit(T viewModel, Bundle args) {
+    }
 
-	protected void navigateTo( Class path )
-	{
-		mvvmContext.getNavigationManager().navigateTo( path );
-	}
+    protected <TVM extends MvvmViewModel> void navigateTo(Class<TVM> viewModelClass) {
+        mvvmContext.getNavigationManager().navigateTo(viewModelClass);
+    }
 
-	protected void navigateTo( Class path, Bundle bundle )
-	{
-		mvvmContext.getNavigationManager().navigateTo( path, bundle );
-	}
+    protected <TVM extends MvvmViewModel> void navigateTo(Class<TVM> viewModelClass, Bundle bundle) {
+        mvvmContext.getNavigationManager().navigateTo(viewModelClass, bundle);
+    }
 
-	protected void navigateBack()
-	{
-		mvvmContext.getNavigationManager().navigateBack();
-	}
+    protected void navigateBack() {
+        mvvmContext.getNavigationManager().navigateBack();
+    }
 
-	public void onResult( int requestCode, int resultCode, Bundle bundle )
-	{
-		if ( viewModelEnabled )
-		{
-			viewModel.onResult( requestCode, resultCode, bundle );
-		}
-	}
+    public void onResult(int requestCode, int resultCode, Bundle bundle) {
+        if (viewModelEnabled) {
+            viewModel.onResult(requestCode, resultCode, bundle);
+        }
+    }
 }

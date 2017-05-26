@@ -9,15 +9,15 @@ import com.swarmnyc.mvvmlib.navigation.NavigationHandler;
 
 import java.security.InvalidParameterException;
 
-public class AppCompatActivityNavigationHandler implements NavigationHandler {
+public class ActivityNavigationHandler implements NavigationHandler {
     private Class activity;
     private Integer requestCode;
 
-    public <T extends AppCompatActivity> AppCompatActivityNavigationHandler( Class<T> activity) {
+    public <T extends AppCompatActivity> ActivityNavigationHandler(Class<T> activity) {
         this.activity = activity;
     }
 
-    public <T extends AppCompatActivity> AppCompatActivityNavigationHandler( Class<T> activity, Integer requestCode) {
+    public <T extends AppCompatActivity> ActivityNavigationHandler(Class<T> activity, Integer requestCode) {
         this.activity = activity;
         this.requestCode = requestCode;
     }

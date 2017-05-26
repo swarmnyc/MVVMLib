@@ -2,32 +2,39 @@ package com.swarmnyc.mvvmlib.navigation;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+
 import com.swarmnyc.mvvmlib.FragmentWrapper;
+import com.swarmnyc.mvvmlib.IMvvmActivity;
+import com.swarmnyc.mvvmlib.IMvvmFragment;
 import com.swarmnyc.mvvmlib.MvvmContext;
+import com.swarmnyc.mvvmlib.MvvmViewModel;
 
-public interface NavigationManager
-{
-	void setMvvmContext( MvvmContext mvvmContext );
+public interface NavigationManager {
+    void setMvvmContext(MvvmContext mvvmContext);
 
-	// TODO let' smake this the ViewModel class.
-	boolean navigateTo( Class path );
+    <T extends MvvmViewModel> boolean navigateTo(Class<T> viewModelClass);
 
-	boolean navigateTo( Class path, Bundle args );
+    <T extends MvvmViewModel> boolean navigateTo(Class<T> viewModelClass, Bundle args);
 
-	boolean navigateTo( Context context, Class path, Bundle args );
+    <T extends MvvmViewModel> boolean navigateTo(Context context, Class<T> viewModelClass, Bundle args);
 
-	void navigateBack();
+    <T extends MvvmViewModel> void add(Class<T> viewModelClass, NavigationHandler handler);
 
-	void dismiss( final Class lowerCasePath );
+    <T1 extends MvvmViewModel, T2 extends IMvvmActivity> NavigationHandler add(Class<T1> viewModelClass, Class<T2> target);
 
-	void closeActivity( Integer result, Bundle args );
+    <T1 extends MvvmViewModel, T2 extends IMvvmFragment> NavigationHandler add(Class<T1> viewModelClass, Class<T2> target, @LayoutRes int layoutId);
 
-	void closeFragment( FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args );
+    <T extends MvvmViewModel> void remove(Class<T> viewModelClass);
 
-	NavigationManager add( Class vmClass, NavigationHandler handler );
+    <T extends MvvmViewModel> void dismiss(final Class<T> viewModelClass);
 
-	void remove( Class vmClass );
+    void navigateBack();
 
-	void linkTo( String url );
+    void closeActivity(Integer result, Bundle args);
+
+    void closeFragment(FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args);
+
+    void linkTo(String url);
 }
 
