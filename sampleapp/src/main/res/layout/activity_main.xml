@@ -41,6 +41,12 @@
             android:layout_height="wrap_content"
             mvvm:navTo='@{"Binding"}'
             android:text="Binding Demo"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            mvvm:navTo='@{"BindableView"}'
+            android:text="Bindable View"/>
     </LinearLayout>
 </layout>
 

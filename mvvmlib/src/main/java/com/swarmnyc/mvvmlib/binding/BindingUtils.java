@@ -2,13 +2,13 @@ package com.swarmnyc.mvvmlib.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
-import android.databinding.tool.util.StringUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
@@ -121,7 +121,7 @@ public class BindingUtils {
 
     @BindingAdapter({"mvvm:htmlText"})
     public static void bindHtmlText(final TextView textView, final String text) {
-        if (StringUtils.isNotBlank(text)) {
+        if (!TextUtils.isEmpty(text)) {
             textView.setText(Html.fromHtml(text));
         }
     }
