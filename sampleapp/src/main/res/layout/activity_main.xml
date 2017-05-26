@@ -3,6 +3,7 @@
         xmlns:mvvm="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.FirstViewModel"/>
 
         <variable
                 name="viewmodel"
@@ -22,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Activity Demo"
-                mvvm:navTo='@{ FirstViewModel.class }'/>
+                />
+        <!--mvvm:navTo='@{ FirstViewModel.class }'-->
 
         <Button
                 android:layout_width="match_parent"
@@ -33,14 +35,16 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                mvvm:navTo='@{"TwoFragment"}'
+
                 android:text="Two Fragment Demo"/>
+        <!--mvvm:navTo='@{SecondFragment.class}'-->
 
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                mvvm:navTo='@{ BindingViewModel.class }'
+
                 android:text="Binding Demo"/>
+        <!--mvvm:navTo='@{ BindingViewModel.class }'-->
     </LinearLayout>
 </layout>
 

@@ -2,7 +2,6 @@ package com.swarmnyc.mvvmlib.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
-import android.databinding.tool.util.StringUtils;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -121,7 +120,7 @@ public class BindingUtils {
 
     @BindingAdapter({"mvvm:htmlText"})
     public static void bindHtmlText(final TextView textView, final String text) {
-        if (StringUtils.isNotBlank(text)) {
+        if ( text != null && text.length() > 0) {
             textView.setText(Html.fromHtml(text));
         }
     }

@@ -15,20 +15,20 @@ import com.swarmnyc.mvvmlib.sampleapp.ui.TwoFragmentActivity;
 public class MainApplication extends MvvmApplication {
     @Override
     public void buildNavigation(NavigationManager manager) {
-        manager.add("MainActivity", new ActivityNavigationHandler(MainActivity.class));
-
-
-        manager.add("First", new ActivityNavigationHandler(FirstActivity.class));
-        manager.add("Second", new ActivityNavigationHandler(SecondActivity.class, 2));
-        manager.add("Third", new ActivityNavigationHandler(ThirdActivity.class, 3) {
-            @Override
-            public void setArgs(Bundle args) {
-                args.putString("title", "Pass from MainApplication");
-            }
-        });
-
-        manager.add("OneFragment", new ActivityNavigationHandler(OneFragmentActivity.class));
-        manager.add("TwoFragment", new ActivityNavigationHandler(TwoFragmentActivity.class));
-        manager.add("Binding", new ActivityNavigationHandler(BindingActivity.class));
+//        manager.add(MainActivity.class, new ActivityNavigationHandler(MainActivity.class));
+//
+//
+//        manager.add(FirstActivity.class, new ActivityNavigationHandler(FirstActivity.class));
+//        manager.add(SecondActivity.class, new ActivityNavigationHandler(SecondActivity.class, 2));
+//        manager.add(ThirdActivity.class, new ActivityNavigationHandler(ThirdActivity.class, 3) {
+//            @Override
+//            public void setArgs(Bundle args) {
+//                args.putString("title", "Pass from MainApplication");
+//            }
+//        });
+//
+//        manager.add(OneFragmentActivity.class, new ActivityNavigationHandler(OneFragmentActivity.class));
+//        manager.add(TwoFragmentActivity.class, new ActivityNavigationHandler(TwoFragmentActivity.class));
+//        manager.add(BindingActivity.class, new ActivityNavigationHandler(BindingActivity.class));
     }
 }
