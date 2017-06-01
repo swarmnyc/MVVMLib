@@ -41,4 +41,4 @@ dependencies {
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
 }
 
-apply from: "https://s3.amazonaws.com/swarm-dev/swarm-deploy.gradle"
+//apply from: "https://s3.amazonaws.com/swarm-dev/swarm-deploy.gradle"

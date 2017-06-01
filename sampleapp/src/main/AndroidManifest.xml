@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.ThirdActivity"
             android:label="Third Activity"/>
-        <activity android:name=".ui.FirstActivity"/>
+        <activity android:name=".ui.FragmentNavigationDemoActivity"/>
         <activity android:name=".ui.OneFragmentActivity"/>
         <activity android:name=".ui.TwoFragmentActivity"/>
         <activity android:name=".ui.BindingActivity"/>

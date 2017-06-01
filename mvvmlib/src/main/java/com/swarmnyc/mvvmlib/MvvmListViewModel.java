@@ -17,5 +17,4 @@ public abstract class MvvmListViewModel extends MvvmViewModel {
     }
 
     abstract public ObservableArrayList getItemCollection();
-    abstract public @LayoutRes int getItemLayoutId();
 }

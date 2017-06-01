@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Activity Demo"
+                android:onClick="@{()-> viewmodel.navToFragmentNavDemo()}"
                 />
         <!--mvvm:navTo='@{ FirstViewModel.class }'-->
 
