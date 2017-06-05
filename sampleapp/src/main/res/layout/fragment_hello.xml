@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+
+		<variable
+			name="viewmodel"
+			type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.HelloViewModel"/>
+	</data>
+
+
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:padding="@dimen/space_1x">
+
+			<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/hint_name"
+				mvvm:text="@{viewmodel.name}"
+				/>
+
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAlignment="center"
+				mvvm:visibility="@{viewmodel.showWelcome}"
+				mvvm:text='@{"Hi " + viewmodel.name.get() + ". Welcome!"}'
+				android:layout_marginTop="@dimen/space_1x"
+				/>
+
+
+		</LinearLayout>
+</layout>

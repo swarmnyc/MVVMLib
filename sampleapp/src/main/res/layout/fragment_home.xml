@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+
+		<variable
+			name="viewmodel"
+			type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.HomeViewModel"/>
+	</data>
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:paddingBottom="@dimen/activity_vertical_margin"
+		android:paddingLeft="@dimen/activity_horizontal_margin"
+		android:paddingRight="@dimen/activity_horizontal_margin"
+		android:paddingTop="@dimen/activity_vertical_margin">
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Hello Demo"
+			android:onClick="@{()-> viewmodel.navToHelloDemo()}"
+			/>
+		<!--mvvm:navTo='@{ FirstViewModel.class }'-->
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="One Fragment Demo"/>
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:text="Two Fragment Demo"/>
+		<!--mvvm:navTo='@{SecondFragment.class}'-->
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+
+			android:text="Binding Demo"/>
+		<!--mvvm:navTo='@{ BindingViewModel.class }'-->
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Bindable View"/>
+	</LinearLayout>
+</layout>

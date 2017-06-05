@@ -4,7 +4,7 @@ import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 import com.swarmnyc.mvvmlib.sampleapp.R;
 import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.FragmentSimpleList;
 import com.swarmnyc.mvvmlib.sampleapp.viewmodel.FragmentNavigationDemoViewModel;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.TextListViewModel;
+import com.swarmnyc.mvvmlib.sampleapp.viewmodel.SimpleListViewModel;
 import com.swarmnyc.mvvmlib.support.MvvmActivity;
 import com.swarmnyc.mvvmlib.support.navigation.FragmentNavigationHandler;
 
@@ -24,10 +24,10 @@ public class FragmentNavigationDemoActivity extends MvvmActivity<FragmentNavigat
 
 		// Settings
 		manager.add(
-			TextListViewModel.class,
+			SimpleListViewModel.class,
 			new FragmentNavigationHandler( FragmentSimpleList.class, R.id.fragment_container )
 		);
 
-		manager.navigateTo( TextListViewModel.class );
+		manager.navigateTo( SimpleListViewModel.class );
 	}
 }

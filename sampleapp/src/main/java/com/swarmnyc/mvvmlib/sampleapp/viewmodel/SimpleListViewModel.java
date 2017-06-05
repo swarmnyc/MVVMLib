@@ -4,32 +4,31 @@ import android.databinding.ObservableArrayList;
 import android.os.Parcel;
 import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
-import com.swarmnyc.mvvmlib.binding.BindableString;
 
 /**
  * Created by somya on 5/31/17.
  */
 
-public class TextListViewModel extends MvvmListViewModel
+public class SimpleListViewModel extends MvvmListViewModel
 {
 	ObservableArrayList<MvvmViewModel> items = new ObservableArrayList<>();
 
-	public static final Creator<TextListViewModel> CREATOR = new Creator<TextListViewModel>()
+	public static final Creator<SimpleListViewModel> CREATOR = new Creator<SimpleListViewModel>()
 	{
 		@Override
-		public TextListViewModel createFromParcel( Parcel source )
+		public SimpleListViewModel createFromParcel( Parcel source )
 		{
-			return new TextListViewModel( source );
+			return new SimpleListViewModel( source );
 		}
 
 		@Override
-		public TextListViewModel[] newArray( int size )
+		public SimpleListViewModel[] newArray( int size )
 		{
-			return new TextListViewModel[size];
+			return new SimpleListViewModel[size];
 		}
 	};
 
-	public TextListViewModel(  )
+	public SimpleListViewModel(  )
 	{
 		for ( int i = 0; i < 100; i++ )
 		{
@@ -45,7 +44,7 @@ public class TextListViewModel extends MvvmListViewModel
 		}
 	}
 
-	protected TextListViewModel(Parcel in) {
+	protected SimpleListViewModel( Parcel in) {
 	}
 
 	@Override

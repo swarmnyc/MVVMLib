@@ -8,8 +8,8 @@ import com.swarmnyc.mvvmlib.adapter.MultiViewDataBindingAdapter;
 import com.swarmnyc.mvvmlib.sampleapp.R;
 import com.swarmnyc.mvvmlib.sampleapp.databinding.SimpleListViewBinding;
 import com.swarmnyc.mvvmlib.sampleapp.viewmodel.ImageListItemViewModel;
+import com.swarmnyc.mvvmlib.sampleapp.viewmodel.SimpleListViewModel;
 import com.swarmnyc.mvvmlib.sampleapp.viewmodel.TextListItemViewModel;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.TextListViewModel;
 import com.swarmnyc.mvvmlib.support.MvvmFragment;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.HashMap;
  * Created by somya on 5/31/17.
  */
 
-public class FragmentSimpleList extends MvvmFragment<TextListViewModel>
+public class FragmentSimpleList extends MvvmFragment<SimpleListViewModel>
 {
 	@Override
 	protected int getLayoutResourceId()
@@ -39,16 +39,15 @@ public class FragmentSimpleList extends MvvmFragment<TextListViewModel>
 
 		final LinearLayoutManager layout = new LinearLayoutManager( getContext(), LinearLayoutManager.VERTICAL,
 		                                                            false );
-		viewDataBinding.recycleView.setLayoutManager(layout);
+		viewDataBinding.recycleView.setLayoutManager( layout );
 
 		final HashMap<Class, Integer> viewModelLayoutMap = new HashMap<>();
 		viewModelLayoutMap.put( TextListItemViewModel.class, R.layout.view_text_list_item );
 		viewModelLayoutMap.put( ImageListItemViewModel.class, R.layout.view_image_list_item );
 
-		final MultiViewDataBindingAdapter adapter = new MultiViewDataBindingAdapter(
-			getContext(),
-			getViewModel(),
-			viewModelLayoutMap
+		final MultiViewDataBindingAdapter adapter = new MultiViewDataBindingAdapter( getContext(),
+		                                                                             getViewModel(),
+		                                                                             viewModelLayoutMap
 		);
 
 		viewDataBinding.recycleView.setAdapter( adapter );
