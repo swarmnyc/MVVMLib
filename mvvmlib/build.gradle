@@ -1,7 +1,10 @@
 //noinspection GradleDependency
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
-version = '0.7' // Maven Property
+
+version = '0.7.1' // Maven Property
+group = 'org.swarmnyc.mvvmlib'
 ext {
     bintrayPackageName = "MVVMLib"
 }

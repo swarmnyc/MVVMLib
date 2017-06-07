@@ -76,6 +76,9 @@ public class DefaultNavigationManager implements NavigationManager {
         if (navigationHandler instanceof DialogFragmentNavigationHandler) {
             ((DialogFragmentNavigationHandler) navigationHandler).dismiss(context);
         }
+        if (navigationHandler instanceof com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) {
+            ((com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) navigationHandler).dismiss(context);
+        }
     }
 
 
