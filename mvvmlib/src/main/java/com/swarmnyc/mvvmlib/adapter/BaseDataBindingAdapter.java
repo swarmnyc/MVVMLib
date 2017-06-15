@@ -35,6 +35,8 @@ public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 		this.viewModels = listViewModel.getItemCollection();
 
 		viewModels.addOnListChangedCallback( new ListChangedCallbackForRecyclerView<Parcelable>( this ) );
+
+
 	}
 
 	public ObservableList<Parcelable> getViewModels()

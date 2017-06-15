@@ -27,6 +27,8 @@ public abstract class BaseBindingAdapter extends android.widget.BaseAdapter
 	{
 		this.inflater = LayoutInflater.from( context );
 		this.viewModels = viewModels.getItemCollection();
+
+		this.viewModels.addOnListChangedCallback( new ListChangedCallbackForSpinner<Parcelable>( this ));
 	}
 
 	@Override
