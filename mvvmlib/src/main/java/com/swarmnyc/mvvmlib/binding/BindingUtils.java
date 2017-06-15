@@ -307,7 +307,6 @@ public class BindingUtils
 				if (null != mvvmSpinnerViewModel.getSelectedVM())
 				{
 					view.setSelection( mvvmSpinnerViewModel.getItemCollection().indexOf(  mvvmSpinnerViewModel.getSelectedVM() ) );
-					view.invalidate();
 				}
 			}
 		} );
