@@ -5,10 +5,8 @@ import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.FragmentHello;
 import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.FragmentHome;
 import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.FragmentSimpleList;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.HelloViewModel;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.HomeViewModel;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.MainViewModel;
-import com.swarmnyc.mvvmlib.sampleapp.viewmodel.SimpleListViewModel;
+import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.FragmentSpinnerDemo;
+import com.swarmnyc.mvvmlib.sampleapp.viewmodel.*;
 import com.swarmnyc.mvvmlib.support.MvvmActivity;
 import com.swarmnyc.mvvmlib.support.navigation.FragmentNavigationHandler;
 
@@ -42,6 +40,11 @@ public class MainActivity extends MvvmActivity<MainViewModel>
 		// Simple List
 		manager.add( SimpleListViewModel.class,
 		             new FragmentNavigationHandler( FragmentSimpleList.class, R.id.fragment_container )
+		);
+
+		// Spinner
+		manager.add( SpinnerDemoViewModel.class,
+		             new FragmentNavigationHandler( FragmentSpinnerDemo.class, R.id.fragment_container )
 		);
 
 		manager.navigateTo( HomeViewModel.class );

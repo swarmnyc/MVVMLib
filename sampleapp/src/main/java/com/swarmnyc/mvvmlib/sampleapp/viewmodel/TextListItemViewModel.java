@@ -33,6 +33,11 @@ public class TextListItemViewModel extends MvvmViewModel
 	{
 	}
 
+	public TextListItemViewModel( final String title )
+	{
+		m_title.set( title );
+	}
+
 	public BindableString getTitle()
 	{
 		return m_title;

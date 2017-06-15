@@ -3,6 +3,7 @@ package com.swarmnyc.mvvmlib.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
 import android.support.annotation.LayoutRes;
@@ -22,8 +23,8 @@ import java.util.Map;
  */
 public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 {
-	private final            LayoutInflater inflater;
-	private final            ObservableArrayList<Parcelable> viewModels;
+	private final LayoutInflater             inflater;
+	private final ObservableList<Parcelable> viewModels;
 
 	public BaseDataBindingAdapter(
 		Context context,
@@ -33,10 +34,10 @@ public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 		this.inflater = LayoutInflater.from( context );
 		this.viewModels = listViewModel.getItemCollection();
 
-		viewModels.addOnListChangedCallback( new ListChangedCallbackForRecyclerView<MvvmViewModel>( this ) );
+		viewModels.addOnListChangedCallback( new ListChangedCallbackForRecyclerView<Parcelable>( this ) );
 	}
 
-	public ObservableArrayList<Parcelable> getViewModels()
+	public ObservableList<Parcelable> getViewModels()
 	{
 		return viewModels;
 	}

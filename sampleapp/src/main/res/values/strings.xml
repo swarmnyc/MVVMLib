@@ -3,4 +3,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="hint_name">Hey there, what\'s your name?</string>
+	<string name="countries">Countries</string>
+	<string name="states">States</string>
+	<string name="items">Items</string>
 </resources>

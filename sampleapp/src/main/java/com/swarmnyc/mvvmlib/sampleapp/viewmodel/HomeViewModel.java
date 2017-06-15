@@ -24,6 +24,11 @@ public class HomeViewModel extends MvvmViewModel
 		navigateTo( FragmentNavigationDemoViewModel.class );
 	}
 
+	public void navToSpinnerDemo()
+	{
+		navigateTo( SpinnerDemoViewModel.class );
+	}
+
 	@Override
 	public int describeContents()
 	{

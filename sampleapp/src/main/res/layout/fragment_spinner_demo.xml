@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<import type="com.swarmnyc.mvvmlib.sampleapp.R"/>
+
+		<variable
+			name="viewmodel"
+			type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.SpinnerDemoViewModel"/>
+	</data>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	              android:orientation="vertical"
+	              android:layout_width="match_parent"
+	              android:layout_height="match_parent"
+	              android:padding="@dimen/space_1x">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/items"/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			mvvm:items="@{viewmodel.SimpleSpinnerVM}"
+			mvvm:itemResId="@{R.layout.view_text_list_item}"
+
+			/>
+
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/countries"
+			android:layout_marginTop="@dimen/space_1x"
+			/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			mvvm:items="@{viewmodel.CountrySpinnerVM}"
+			mvvm:itemResId="@{R.layout.view_text_list_item}"
+			/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/states"
+			android:layout_marginTop="@dimen/space_1x"/>
+
+		<Spinner
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			mvvm:items="@{viewmodel.StateSpinnerVM}"
+			mvvm:itemResId="@{R.layout.view_text_list_item}"
+			/>
+
+
+	</LinearLayout>
+
+</layout>
