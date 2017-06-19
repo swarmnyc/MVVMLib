@@ -1,13 +1,8 @@
 package com.swarmnyc.mvvmlib.adapter;
 
 import android.content.Context;
+import android.databinding.ObservableList;
 import android.support.annotation.LayoutRes;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Tao on 9/16/16.
@@ -18,12 +13,12 @@ public class DefaultBindingAdapter extends BaseBindingAdapter
 
 	public DefaultBindingAdapter(
 		Context context,
-		MvvmListViewModel listViewModel,
+		ObservableList list,
 		@LayoutRes
 			int layoutId
 	)
 	{
-		super( context, listViewModel );
+		super( context, list );
 
 		this.layoutId = layoutId;
 	}

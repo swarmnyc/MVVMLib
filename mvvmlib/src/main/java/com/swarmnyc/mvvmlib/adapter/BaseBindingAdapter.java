@@ -2,7 +2,6 @@ package com.swarmnyc.mvvmlib.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.swarmnyc.mvvmlib.BR;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
 
 /**
  * Created by somya on 6/7/17.
@@ -18,29 +16,29 @@ import com.swarmnyc.mvvmlib.MvvmListViewModel;
 
 public abstract class BaseBindingAdapter extends android.widget.BaseAdapter
 {
-	private final LayoutInflater             inflater;
-	private final ObservableList<Parcelable> viewModels;
+	protected final LayoutInflater inflater;
+	private final ObservableList m_list;
 
 	public BaseBindingAdapter(
-		final Context context, final MvvmListViewModel viewModels
+		final Context context, final ObservableList list
 	)
 	{
 		this.inflater = LayoutInflater.from( context );
-		this.viewModels = viewModels.getItemCollection();
+		this.m_list = list;
 
-		this.viewModels.addOnListChangedCallback( new ListChangedCallbackForSpinner<Parcelable>( this ));
+		this.m_list.addOnListChangedCallback( new ListChangedCallbackForSpinner<>( this ));
 	}
 
 	@Override
 	public int getCount()
 	{
-		return viewModels.size();
+		return m_list.size();
 	}
 
 	@Override
 	public Object getItem( final int position )
 	{
-		return viewModels.get( position );
+		return m_list.get( position );
 	}
 
 	@Override

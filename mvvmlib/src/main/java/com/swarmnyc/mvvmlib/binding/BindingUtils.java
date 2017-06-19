@@ -1,8 +1,6 @@
 package com.swarmnyc.mvvmlib.binding;
 
-import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
-import android.databinding.Observable;
+import android.databinding.*;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -13,9 +11,11 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.*;
-import com.swarmnyc.mvvmlib.*;
-import com.swarmnyc.mvvmlib.adapter.DefaultBindingAdapter;
+import com.swarmnyc.mvvmlib.MvvmContext;
+import com.swarmnyc.mvvmlib.MvvmListViewModel;
+import com.swarmnyc.mvvmlib.R;
 import com.swarmnyc.mvvmlib.adapter.DefaultDataBindingAdapter;
+import com.swarmnyc.mvvmlib.adapter.DefaultSpinnerBindingAdapter;
 import com.swarmnyc.mvvmlib.binding.image.ImageCropType;
 import com.swarmnyc.mvvmlib.layout.BaseRecyclerViewLayout;
 import com.swarmnyc.mvvmlib.layout.GridRecyclerViewLayout;
@@ -279,57 +279,66 @@ public class BindingUtils
 		LinearRecyclerViewLayout layout = new LinearRecyclerViewLayout();
 		layout.setViewLayout( view );
 
-		DefaultDataBindingAdapter adapter = new DefaultDataBindingAdapter( view.getContext(), listViewModel, itemResId );
+		DefaultDataBindingAdapter adapter = new DefaultDataBindingAdapter( view.getContext(),
+		                                                                   listViewModel,
+		                                                                   itemResId
+		);
 		view.setAdapter( adapter );
 	}
 
-	@BindingAdapter( {"mvvm:items", "mvvm:itemResId"} )
+	@BindingAdapter( {"mvvm:items", "mvvm:selectedItem", "mvvm:selectedResId", "mvvm:itemResId"} )
 	public static void bindItems(
-		final Spinner view, final MvvmSpinnerViewModel mvvmSpinnerViewModel, final int itemResId
+		final Spinner view, final ObservableList observableList, final ObservableField selectedItem, final int
+		selectedResId, final int itemResId
 	)
 	{
 
-		DefaultBindingAdapter adapter = new DefaultBindingAdapter( view.getContext(), mvvmSpinnerViewModel, itemResId );
+		DefaultSpinnerBindingAdapter adapter = new DefaultSpinnerBindingAdapter( view.getContext(),
+		                                                                         observableList,
+		                                                                         selectedResId,
+		                                                                         itemResId
+		);
 		view.setAdapter( adapter );
 
 		// setup the initial selection
-		if (null != mvvmSpinnerViewModel.getSelectedVM())
+		if (null != selectedItem)
 		{
-			view.setSelection( mvvmSpinnerViewModel.getItemCollection().indexOf(  mvvmSpinnerViewModel.getSelectedVM() ) );
-		}
+			view.setSelection( observableList.indexOf( selectedItem.get() ) );
 
-		// Set up selection changes to update UI
-		mvvmSpinnerViewModel.getSelectedItem().addOnPropertyChangedCallback( new Observable.OnPropertyChangedCallback
-			() {
-			@Override
-			public void onPropertyChanged( final Observable sender, final int propertyId )
+
+			// Set up selection changes to update UI
+			selectedItem.addOnPropertyChangedCallback( new Observable.OnPropertyChangedCallback()
 			{
-				if (null != mvvmSpinnerViewModel.getSelectedVM())
+				@Override
+				public void onPropertyChanged( final Observable sender, final int propertyId )
 				{
-					view.setSelection( mvvmSpinnerViewModel.getItemCollection().indexOf(  mvvmSpinnerViewModel.getSelectedVM() ) );
+					if (null != selectedItem.get())
+					{
+						view.setSelection( observableList.indexOf( selectedItem.get() ) );
+					}
 				}
-			}
-		} );
+			} );
+		}
 
 
 		// Set up selection changes to update VM
-		view.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+		view.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener()
+		{
 			@Override
 			public void onItemSelected(
-				final AdapterView<?> parent,
-				final View view,
-				final int position,
-				final long id
+				final AdapterView<?> parent, final View view, final int position, final long id
 			)
 			{
-				mvvmSpinnerViewModel.setSelectedVM( (MvvmViewModel) mvvmSpinnerViewModel.getItemCollection().get( position ) );
+				selectedItem.set( observableList.get( position ) );
 			}
 
 			@Override
 			public void onNothingSelected( final AdapterView<?> parent )
 			{
-				mvvmSpinnerViewModel.setSelectedVM( null );
+				selectedItem.set( null );
 			}
 		} );
 	}
+
+
 }

@@ -1,6 +1,9 @@
 package com.swarmnyc.mvvmlib.sampleapp.viewmodel;
 
 import android.databinding.Observable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 import android.os.Parcel;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
 
@@ -11,51 +14,93 @@ import com.swarmnyc.mvvmlib.MvvmViewModel;
 public class SpinnerDemoViewModel extends MvvmViewModel
 {
 
-	SimpleSpinnerDemoViewModel m_simpleSpinnerVM  = new SimpleSpinnerDemoViewModel();
-	CountrySpinnerViewModel    m_countrySpinnerVM = new CountrySpinnerViewModel();
-	StateSpinnerViewModel      m_stateSpinnerVM   = new StateSpinnerViewModel();
+
+	ObservableList                         m_labels        = new ObservableArrayList<MvvmViewModel>();
+	ObservableField<TextListItemViewModel> m_selectedLabel = new ObservableField<>();
+
+	ObservableArrayList<TextListItemViewModel> m_countries       = new ObservableArrayList<>();
+	ObservableField<TextListItemViewModel>     m_selectedCountry = new ObservableField<>();
+	ObservableArrayList<TextListItemViewModel> m_states          = new ObservableArrayList<>();
+	ObservableField<TextListItemViewModel>     m_selectedState   = new ObservableField<>();
 
 
 	public SpinnerDemoViewModel()
 	{
-		m_countrySpinnerVM.getSelectedItem().addOnPropertyChangedCallback( new Observable.OnPropertyChangedCallback()
+		m_labels.add( new TextListItemViewModel( "Label 1" ) );
+		m_labels.add( new TextListItemViewModel( "Label 2" ) );
+		m_labels.add( new TextListItemViewModel( "Label 3" ) );
+		m_labels.add( new TextListItemViewModel( "Label 4" ) );
+
+		m_countries.add( new TextListItemViewModel( "USA" ) );
+		m_countries.add( new TextListItemViewModel( "UK" ) );
+		m_countries.add( new TextListItemViewModel( "Australia" ) );
+
+
+		m_selectedCountry.addOnPropertyChangedCallback( new Observable.OnPropertyChangedCallback()
 		{
 			@Override
 			public void onPropertyChanged( final Observable sender, final int propertyId )
 			{
-				final TextListItemViewModel selectedVM = (TextListItemViewModel) m_countrySpinnerVM.getSelectedVM();
+				final TextListItemViewModel selectedVM = m_selectedCountry.get();
 				switch ( selectedVM.m_title.get() )
 				{
 					case "USA":
-						m_stateSpinnerVM.setStates( new String[]{"NY", "CA", "IN", "AL"} );
+						setStates( new String[]{"NY", "CA", "IN", "AL"} );
 						break;
 					case "Australia":
-						m_stateSpinnerVM.setStates( new String[]{"NSW", "VIC", "QLD", "WA"} );
+						setStates( new String[]{"NSW", "VIC", "QLD", "WA"} );
 						break;
 					case "UK":
-						m_stateSpinnerVM.setStates( new String[]{"Lester", "London", "Wales", "Scotland"} );
-
+						setStates( new String[]{"Lester", "London", "Wales", "Scotland"} );
 						break;
 				}
-				m_stateSpinnerVM.setSelectedVM( (MvvmViewModel) m_stateSpinnerVM.getItemCollection().get( 0 ) );
+				m_selectedState.set( m_states.get( 0 ) );
 			}
 		} );
 	}
 
 
-	public SimpleSpinnerDemoViewModel getSimpleSpinnerVM()
+	public void setStates( final String[] stateNames )
 	{
-		return m_simpleSpinnerVM;
+		m_states.clear();
+
+		for ( String s : stateNames )
+		{
+			m_states.add( new TextListItemViewModel( s ) );
+		}
+
+		//		setSelectedVM( m_states.get( 0 ) );
 	}
 
-	public CountrySpinnerViewModel getCountrySpinnerVM()
+
+	public ObservableList getLabels()
 	{
-		return m_countrySpinnerVM;
+		return m_labels;
 	}
 
-	public StateSpinnerViewModel getStateSpinnerVM()
+	public ObservableField<TextListItemViewModel> getSelectedLabel()
 	{
-		return m_stateSpinnerVM;
+		return m_selectedLabel;
+	}
+
+	public ObservableArrayList<TextListItemViewModel> getCountries()
+	{
+		return m_countries;
+	}
+
+	public ObservableField<TextListItemViewModel> getSelectedCountry()
+	{
+		return m_selectedCountry;
+	}
+
+	public ObservableArrayList<TextListItemViewModel> getStates()
+	{
+		return m_states;
+	}
+
+	public ObservableField<TextListItemViewModel> getSelectedState()
+	{
+		return m_selectedState;
 	}
 
 	protected SpinnerDemoViewModel( Parcel in )

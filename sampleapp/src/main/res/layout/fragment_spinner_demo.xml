@@ -21,12 +21,13 @@
 			android:layout_height="wrap_content"
 			android:text="@string/items"/>
 
+
 		<Spinner
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			mvvm:items="@{viewmodel.SimpleSpinnerVM}"
-			mvvm:itemResId="@{R.layout.view_text_list_item}"
-
+			mvvm:items="@{viewmodel.labels}"
+			mvvm:selectedItem="@{viewmodel.selectedLabel}"
+			mvvm:itemResId="@{@layout/view_text_list_item}"
 			/>
 
 
@@ -40,7 +41,8 @@
 		<Spinner
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			mvvm:items="@{viewmodel.CountrySpinnerVM}"
+			mvvm:items="@{viewmodel.countries}"
+			mvvm:selectedItem="@{viewmodel.selectedCountry}"
 			mvvm:itemResId="@{R.layout.view_text_list_item}"
 			/>
 
@@ -53,7 +55,8 @@
 		<Spinner
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			mvvm:items="@{viewmodel.StateSpinnerVM}"
+			mvvm:items="@{viewmodel.states}"
+			mvvm:selectedItem="@{viewmodel.selectedState}"
 			mvvm:itemResId="@{R.layout.view_text_list_item}"
 			/>
 
