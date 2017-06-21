@@ -288,8 +288,11 @@ public class BindingUtils
 
 	@BindingAdapter( {"mvvm:items", "mvvm:selectedItem", "mvvm:selectedResId", "mvvm:itemResId"} )
 	public static void bindSpinner(
-		final Spinner view, final ObservableList observableList, final ObservableField selectedItem, final int
-		selectedResId, final int itemResId
+		final Spinner view,
+		final ObservableList observableList,
+		final ObservableField selectedItem,
+		final int selectedResId,
+		final int itemResId
 	)
 	{
 
