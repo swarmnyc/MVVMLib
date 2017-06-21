@@ -28,23 +28,20 @@ public class SimpleListViewModel extends MvvmListViewModel
 		}
 	};
 
-	public SimpleListViewModel(  )
+	public SimpleListViewModel()
 	{
 		for ( int i = 0; i < 100; i++ )
 		{
-			if (i%2==0)
-			{
-				final TextListItemViewModel itemViewModel = new TextListItemViewModel();
-				itemViewModel.m_title.set( "item: " + String.valueOf( i ) );
-				items.add( itemViewModel );
-			}
-			else {
-				items.add( new ImageListItemViewModel(  ) );
-			}
+
+			final TextListItemViewModel itemViewModel = new TextListItemViewModel();
+			itemViewModel.m_title.set( "item: " + String.valueOf( i ) );
+			items.add( itemViewModel );
+
 		}
 	}
 
-	protected SimpleListViewModel( Parcel in) {
+	protected SimpleListViewModel( Parcel in )
+	{
 	}
 
 	@Override

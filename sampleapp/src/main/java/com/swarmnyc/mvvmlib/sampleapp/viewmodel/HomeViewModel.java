@@ -1,18 +1,13 @@
 package com.swarmnyc.mvvmlib.sampleapp.viewmodel;
 
-import android.databinding.Observable;
-import android.databinding.ObservableBoolean;
 import android.os.Parcel;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
-import com.swarmnyc.mvvmlib.binding.BindableString;
 
 public class HomeViewModel extends MvvmViewModel
 {
-
 	public HomeViewModel()
 	{
 	}
-
 
 	public void navToHelloDemo()
 	{
@@ -27,6 +22,16 @@ public class HomeViewModel extends MvvmViewModel
 	public void navToSpinnerDemo()
 	{
 		navigateTo( SpinnerDemoViewModel.class );
+	}
+
+	public void navToSimpleList()
+	{
+		navigateTo( SimpleListViewModel.class );
+	}
+
+	public void navToMultiItemList()
+	{
+		navigateTo( MultiItemListViewModel.class );
 	}
 
 	@Override

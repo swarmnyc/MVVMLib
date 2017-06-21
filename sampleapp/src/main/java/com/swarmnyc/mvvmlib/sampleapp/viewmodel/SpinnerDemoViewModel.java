@@ -3,7 +3,6 @@ package com.swarmnyc.mvvmlib.sampleapp.viewmodel;
 import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 import android.os.Parcel;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
 
@@ -15,8 +14,8 @@ public class SpinnerDemoViewModel extends MvvmViewModel
 {
 
 
-	ObservableList                         m_labels        = new ObservableArrayList<MvvmViewModel>();
-	ObservableField<TextListItemViewModel> m_selectedLabel = new ObservableField<>();
+	ObservableArrayList<TextListItemViewModel> m_labels        = new ObservableArrayList<TextListItemViewModel>();
+	ObservableField<TextListItemViewModel>     m_selectedLabel = new ObservableField<>();
 
 	ObservableArrayList<TextListItemViewModel> m_countries       = new ObservableArrayList<>();
 	ObservableField<TextListItemViewModel>     m_selectedCountry = new ObservableField<>();
@@ -73,7 +72,7 @@ public class SpinnerDemoViewModel extends MvvmViewModel
 	}
 
 
-	public ObservableList getLabels()
+	public ObservableArrayList<TextListItemViewModel> getLabels()
 	{
 		return m_labels;
 	}

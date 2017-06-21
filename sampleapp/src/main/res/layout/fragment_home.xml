@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+	>
 
 	<data>
 
@@ -34,6 +34,23 @@
 			android:text="Spinner Demo"
 			android:onClick="@{()-> viewmodel.navToSpinnerDemo()}"
 			/>
+
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Simple Recycle View Demo"
+			android:onClick="@{()-> viewmodel.navToSimpleList()}"
+			/>
+
+
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Multiple Items in List Demo"
+			android:onClick="@{()-> viewmodel.navToMultiItemList()}"
+			/>
+
 
 		<Button
 			android:layout_width="match_parent"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:mvvm="http://schemas.android.com/apk/res-auto"
 	>
 
-	<data class="SimpleListViewBinding">
+	<data >
 
 
 		<variable
@@ -19,6 +20,8 @@
 			android:id="@+id/recycle_view"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+		    mvvm:list="@{viewmodel}"
+		    mvvm:itemResId="@{@layout/view_text_list_item}"
 			/>
 
 	</FrameLayout>

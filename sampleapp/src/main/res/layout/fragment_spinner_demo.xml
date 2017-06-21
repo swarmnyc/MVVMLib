@@ -28,6 +28,7 @@
 			mvvm:items="@{viewmodel.labels}"
 			mvvm:selectedItem="@{viewmodel.selectedLabel}"
 			mvvm:itemResId="@{@layout/view_text_list_item}"
+			mvvm:selectedResId="@{@layout/view_text_list_item}"
 			/>
 
 
@@ -44,6 +45,7 @@
 			mvvm:items="@{viewmodel.countries}"
 			mvvm:selectedItem="@{viewmodel.selectedCountry}"
 			mvvm:itemResId="@{R.layout.view_text_list_item}"
+			mvvm:selectedResId="@{R.layout.view_text_list_item}"
 			/>
 
 		<TextView
@@ -58,6 +60,7 @@
 			mvvm:items="@{viewmodel.states}"
 			mvvm:selectedItem="@{viewmodel.selectedState}"
 			mvvm:itemResId="@{R.layout.view_text_list_item}"
+			mvvm:selectedResId="@{R.layout.view_text_list_item}"
 			/>
 
 
