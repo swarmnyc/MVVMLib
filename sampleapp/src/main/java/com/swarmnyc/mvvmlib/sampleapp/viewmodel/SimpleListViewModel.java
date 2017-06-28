@@ -2,7 +2,6 @@ package com.swarmnyc.mvvmlib.sampleapp.viewmodel;
 
 import android.databinding.ObservableArrayList;
 import android.os.Parcel;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.MvvmViewModel;
 
 /**
@@ -35,6 +34,16 @@ public class SimpleListViewModel extends MvvmViewModel
 
 			final TextListItemViewModel itemViewModel = new TextListItemViewModel();
 			itemViewModel.m_title.set( "item: " + String.valueOf( i ) );
+			final int finalI = i;
+			itemViewModel.setOnSelectHandler( new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					getContext().getNotificationProvider().showNotification( "Selected Item "
+					                                                         + String.valueOf( finalI ) );
+				}
+			} );
 			items.add( itemViewModel );
 
 		}

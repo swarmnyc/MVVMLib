@@ -16,6 +16,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		mvvm:text="@{viewmodel.title}"
+		android:onClick="@{() -> viewmodel.onSelected()}"
 		android:padding="@dimen/activity_vertical_margin"/>
 
 
