@@ -43,6 +43,11 @@ public class MainActivity extends MvvmActivity<MainViewModel>
 		             new FragmentNavigationHandler( FragmentSimpleList.class, R.id.fragment_container )
 		);
 
+		// Simple Grid
+		manager.add( SimpleGridViewModel.class,
+		             new FragmentNavigationHandler( FragmentSimpleGrid.class, R.id.fragment_container )
+		);
+
 		// Multi Item List
 		manager.add( MultiItemListViewModel.class,
 		             new FragmentNavigationHandler( FragmentMultiItemList.class, R.id.fragment_container )

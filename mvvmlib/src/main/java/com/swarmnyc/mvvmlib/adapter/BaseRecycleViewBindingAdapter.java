@@ -2,44 +2,33 @@ package com.swarmnyc.mvvmlib.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
-import android.os.Parcelable;
-import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
-import com.swarmnyc.mvvmlib.MvvmViewModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Tao on 9/16/16.
  */
-public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
+public abstract class BaseRecycleViewBindingAdapter<T> extends RecyclerView.Adapter
 {
-	private final LayoutInflater             inflater;
-	private final ObservableList<Parcelable> viewModels;
+	private final LayoutInflater    inflater;
+	private final ObservableList<T> viewModels;
 
-	public BaseDataBindingAdapter(
-		Context context,
-		MvvmListViewModel listViewModel
+	public BaseRecycleViewBindingAdapter(
+		Context context, ObservableList<T> observableList
 	)
 	{
 		this.inflater = LayoutInflater.from( context );
-		this.viewModels = listViewModel.getItemCollection();
+		this.viewModels = observableList;
 
-		viewModels.addOnListChangedCallback( new ListChangedCallbackForRecyclerView<Parcelable>( this ) );
+		viewModels.addOnListChangedCallback( new ListChangedCallbackForRecyclerView<T>( this ) );
 
 
 	}
 
-	public ObservableList<Parcelable> getViewModels()
+	public ObservableList<T> getViewModels()
 	{
 		return viewModels;
 	}
@@ -48,7 +37,7 @@ public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 	public RecyclerView.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType )
 	{
 		DataBindingViewHolder bindingViewHolder;
-		ViewDataBinding vdb = DataBindingUtil.inflate( inflater, getLayoutId(viewType), parent, false );
+		ViewDataBinding vdb = DataBindingUtil.inflate( inflater, getLayoutId( viewType ), parent, false );
 		bindingViewHolder = new DataBindingViewHolder( vdb );
 		return bindingViewHolder;
 	}
@@ -60,7 +49,7 @@ public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 	public void onBindViewHolder( RecyclerView.ViewHolder holder, int position )
 	{
 		DataBindingViewHolder viewHolder = (DataBindingViewHolder) holder;
-		Parcelable itemViewModel = this.viewModels.get( position );
+		T itemViewModel = this.viewModels.get( position );
 		viewHolder.setData( itemViewModel );
 	}
 
@@ -69,8 +58,6 @@ public abstract class BaseDataBindingAdapter extends RecyclerView.Adapter
 	{
 		return this.viewModels.size();
 	}
-
-
 
 
 }

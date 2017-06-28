@@ -8,7 +8,7 @@
 
 		<variable
 			name="viewmodel"
-			type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.SimpleListViewModel"/>
+			type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.SimpleGridViewModel"/>
 	</data>
 
 	<FrameLayout
@@ -22,6 +22,7 @@
 			android:layout_height="match_parent"
 		    mvvm:items="@{viewmodel.items}"
 		    mvvm:itemResId="@{@layout/view_text_list_item}"
+		    mvvm:numColumns="@{@integer/columns}"
 			/>
 
 	</FrameLayout>

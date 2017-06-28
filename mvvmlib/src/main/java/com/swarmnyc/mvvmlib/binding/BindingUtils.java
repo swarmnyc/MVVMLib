@@ -12,7 +12,6 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.*;
 import com.swarmnyc.mvvmlib.MvvmContext;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
 import com.swarmnyc.mvvmlib.R;
 import com.swarmnyc.mvvmlib.adapter.DefaultDataBindingAdapter;
 import com.swarmnyc.mvvmlib.adapter.DefaultSpinnerBindingAdapter;
@@ -251,9 +250,9 @@ public class BindingUtils
 	//        view.setAdapter(adapter);
 	//    }
 
-	@BindingAdapter( {"mvvm:list", "mvvm:itemResId", "mvvm:numColumns"} )
-	public static void bindList(
-		final RecyclerView view, final MvvmListViewModel listViewModel, final int numColumns, final int itemResId
+	@BindingAdapter( {"mvvm:items", "mvvm:itemResId", "mvvm:numColumns"} )
+	public static void bindRecycleView(
+		final RecyclerView view, final ObservableList observableList, final int itemResId, final int numColumns
 	)
 	{
 		BaseRecyclerViewLayout layout;
@@ -267,24 +266,26 @@ public class BindingUtils
 		}
 		layout.setViewLayout( view );
 
-		RecyclerView.Adapter adapter = new DefaultDataBindingAdapter( view.getContext(), listViewModel, itemResId );
+		RecyclerView.Adapter adapter = new DefaultDataBindingAdapter( view.getContext(), observableList, itemResId );
 		view.setAdapter( adapter );
 	}
 
-	@BindingAdapter( {"mvvm:list", "mvvm:itemResId"} )
-	public static void bindList(
-		final RecyclerView view, final MvvmListViewModel listViewModel, final int itemResId
+
+	@BindingAdapter( {"mvvm:items", "mvvm:itemResId"} )
+	public static void bindRecycleView(
+		final RecyclerView view, final ObservableList observableList, final int itemResId
 	)
 	{
 		LinearRecyclerViewLayout layout = new LinearRecyclerViewLayout();
 		layout.setViewLayout( view );
 
 		DefaultDataBindingAdapter adapter = new DefaultDataBindingAdapter( view.getContext(),
-		                                                                   listViewModel,
+		                                                                   observableList,
 		                                                                   itemResId
 		);
 		view.setAdapter( adapter );
 	}
+
 
 	@BindingAdapter( {"mvvm:items", "mvvm:selectedItem", "mvvm:selectedResId", "mvvm:itemResId"} )
 	public static void bindSpinner(
