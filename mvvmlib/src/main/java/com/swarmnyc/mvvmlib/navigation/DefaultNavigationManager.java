@@ -77,10 +77,23 @@ public class DefaultNavigationManager implements NavigationManager {
             ((DialogFragmentNavigationHandler) navigationHandler).dismiss(context);
         }
         if (navigationHandler instanceof com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) {
-            ((com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) navigationHandler).dismiss(context);
+            ((com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) navigationHandler).dismiss(context, null);
         }
     }
 
+    @Override public <T extends MvvmViewModel> void dismiss(Class<T> viewModelClass, Bundle args) {
+        Context context = mvvmContext.getAndroidContext();
+
+        NavigationHandler navigationHandler = maps.get(viewModelClass);
+
+        if (navigationHandler instanceof DialogFragmentNavigationHandler) {
+            ((DialogFragmentNavigationHandler) navigationHandler).dismiss(context);
+        }
+        if (navigationHandler instanceof com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) {
+            ((com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler) navigationHandler).dismiss(context, args);
+        }
+
+    }
 
     @Override
     public void closeFragment(FragmentWrapper fragment, Integer targetRequestCode, Integer result, Bundle args) {
