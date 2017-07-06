@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 
-version = '0.7.5' // Maven Property
+version = '0.7.6' // Maven Property
 group = 'org.swarmnyc.mvvmlib'
 ext {
     bintrayPackageName = "MVVMLib"
