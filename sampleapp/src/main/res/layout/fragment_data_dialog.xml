@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:mvvm="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+				name="viewmodel"
+				type="com.swarmnyc.mvvmlib.sampleapp.viewmodel.DataDialogViewModel" />
+	</data>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+		<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				mvvm:text="@{viewmodel.name}" />
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@{viewmodel.name}" />
+
+		<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:onClick="@{()-> viewmodel.onDone()}"
+				android:text="DONE" />
+
+		<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:onClick="@{()-> viewmodel.onCancel()}"
+				android:text="CANCEL" />
+
+	</LinearLayout>
+</layout>
