@@ -9,7 +9,8 @@ import java.util.List;
 public abstract class MvvmViewModel implements Parcelable
 {
 	private MvvmContext context;
-	private List<MvvmViewModel> m_childVMs = new ArrayList<>(  );
+	private List<MvvmViewModel> m_childVMs = new ArrayList<>();
+	private Bundle m_args;
 
 	public MvvmContext getContext()
 	{
@@ -27,10 +28,14 @@ public abstract class MvvmViewModel implements Parcelable
 
 	public void onInit( Bundle args )
 	{
+		m_args = args;
 		for ( MvvmViewModel childVM : m_childVMs )
 		{
-			childVM.context = this.context;
-		    childVM.onInit( args );
+			if (childVM.m_args == null) // avoid multiple registration
+			{
+				childVM.context = this.context;
+				childVM.onInit( args );
+			}
 		}
 	}
 
@@ -49,11 +54,30 @@ public abstract class MvvmViewModel implements Parcelable
 		context.getNavigationManager().navigateBack();
 	}
 
-	void addChild(MvvmViewModel child) {
+	void registerChildViewModel( MvvmViewModel child )
+	{
 		m_childVMs.add( child );
+		if (this.m_args != null && child.m_args == null)
+		{
+			child.context = this.context;
+			child.onInit( m_args );
+		}
 	}
 
-	void addChildren(List<MvvmViewModel> children) {
+	void registerChildViewModels( List<MvvmViewModel> children )
+	{
 		m_childVMs.addAll( children );
+		// register the children
+		if (this.m_args != null)
+		{
+			for ( MvvmViewModel childVM : children )
+			{
+				if (childVM.m_args == null) // avoid multiple registration
+				{
+					childVM.context = this.context;
+					childVM.onInit( m_args );
+				}
+			}
+		}
 	}
 }
