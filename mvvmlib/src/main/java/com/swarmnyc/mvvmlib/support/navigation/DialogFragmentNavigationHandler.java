@@ -1,6 +1,5 @@
 package com.swarmnyc.mvvmlib.support.navigation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -9,8 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import com.swarmnyc.mvvmlib.Errors;
 import com.swarmnyc.mvvmlib.navigation.NavigationHandler;
-
+import com.swarmnyc.mvvmlib.support.MvvmFragment;
 import java.security.InvalidParameterException;
+
+import static com.swarmnyc.mvvmlib.support.navigation.FragmentNavigationHandler.getLastFragment;
 
 public class DialogFragmentNavigationHandler implements NavigationHandler
 {
@@ -64,12 +65,12 @@ public class DialogFragmentNavigationHandler implements NavigationHandler
 		if ( args == null )
 		{ args = new Bundle(); }
 
-
 		setArgs( args );
 		dialogFragment.setArguments( args );
+		dialogFragment.setTargetFragment( getLastFragment(fragmentManager), 0);
 	}
 
-	public void dismiss( Context context )
+	public void dismiss( Context context, Bundle args )
 	{
 		if ( !( context instanceof AppCompatActivity ) )
 		{
@@ -80,6 +81,11 @@ public class DialogFragmentNavigationHandler implements NavigationHandler
 		if ( prev != null && prev instanceof DialogFragment )
 		{
 			DialogFragment df = (DialogFragment) prev;
+			Fragment targetFragment = df.getTargetFragment();
+			if ( targetFragment instanceof MvvmFragment )
+			{
+				((MvvmFragment) targetFragment).onResult( 0, 0, args );
+			}
 			df.dismiss();
 		}
 	}

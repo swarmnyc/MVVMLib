@@ -57,6 +57,12 @@
 			android:onClick="@{()-> viewmodel.navToMultiItemList()}"
 			/>
 
+		<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="Passing Data between Dialog and Fragment"
+				android:onClick="@{()-> viewmodel.navToPassingDataDemo()}"
+				/>
 
 		<Button
 			android:layout_width="match_parent"

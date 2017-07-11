@@ -14,6 +14,7 @@ import com.swarmnyc.mvvmlib.Keys;
 import com.swarmnyc.mvvmlib.navigation.NavigationHandler;
 
 import java.security.InvalidParameterException;
+import java.util.List;
 
 public class FragmentNavigationHandler implements NavigationHandler {
     public static final String FTAG = "fragmentTag";
@@ -95,9 +96,11 @@ public class FragmentNavigationHandler implements NavigationHandler {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         if (!customTransaction(transaction)) {
-            transaction.replace(layoutId, fragment, FTAG);
-            if (getBackStackName() != null && fragmentManager.findFragmentById(layoutId) != null) {
-                transaction.addToBackStack(getBackStackName());
+            String tag = getBackStackName();
+            if (tag == null) tag = FTAG;
+            transaction.replace(layoutId, fragment, tag);
+            if (fragmentManager.findFragmentById(layoutId) != null) {
+                transaction.addToBackStack(tag);
             }
         }
 
@@ -113,10 +116,11 @@ public class FragmentNavigationHandler implements NavigationHandler {
         fragment.setArguments(args);
     }
 
-    private Fragment getLastFragment(final FragmentManager supportFragmentManager)
+    static Fragment getLastFragment(final FragmentManager supportFragmentManager)
     {
 
         Fragment fragment = null;
+        final List<Fragment> fragments = supportFragmentManager.getFragments();
 
         if ( supportFragmentManager.getBackStackEntryCount() > 0 )
         {
@@ -130,11 +134,11 @@ public class FragmentNavigationHandler implements NavigationHandler {
                 fragment = (Fragment) fragmentByTag;
             }
         }
-        else if ( supportFragmentManager.getFragments().size() == 1 )
+        else if ( fragments != null && fragments.size() == 1 )
         {
-            if ( supportFragmentManager.getFragments().get( 0 ) instanceof Fragment )
+            if ( fragments.get( 0 ) instanceof Fragment )
             {
-                fragment = (Fragment) supportFragmentManager.getFragments().get( 0 );
+                fragment = (Fragment) fragments.get( 0 );
             }
         }
 

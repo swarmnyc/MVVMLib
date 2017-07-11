@@ -39,6 +39,10 @@ public class HomeViewModel extends MvvmViewModel
 		navigateTo( MultiItemListViewModel.class );
 	}
 
+	public void navToPassingDataDemo() {
+		navigateTo( PassingDataDemoViewModel.class );
+	}
+
 	@Override
 	public int describeContents()
 	{

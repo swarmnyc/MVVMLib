@@ -5,6 +5,7 @@ import com.swarmnyc.mvvmlib.navigation.NavigationManager;
 import com.swarmnyc.mvvmlib.sampleapp.ui.fragment.*;
 import com.swarmnyc.mvvmlib.sampleapp.viewmodel.*;
 import com.swarmnyc.mvvmlib.support.MvvmActivity;
+import com.swarmnyc.mvvmlib.support.navigation.DialogFragmentNavigationHandler;
 import com.swarmnyc.mvvmlib.support.navigation.FragmentNavigationHandler;
 
 public class MainActivity extends MvvmActivity<MainViewModel>
@@ -44,7 +45,8 @@ public class MainActivity extends MvvmActivity<MainViewModel>
 		);
 
 		// Simple Grid
-		manager.add( SimpleGridViewModel.class,
+		manager.add(
+			SimpleGridViewModel.class,
 		             new FragmentNavigationHandler( FragmentSimpleGrid.class, R.id.fragment_container )
 		);
 
@@ -52,6 +54,13 @@ public class MainActivity extends MvvmActivity<MainViewModel>
 		manager.add( MultiItemListViewModel.class,
 		             new FragmentNavigationHandler( FragmentMultiItemList.class, R.id.fragment_container )
 		);
+
+		// Passing data between Fragment and Dialog demo.
+		manager.add(PassingDataDemoViewModel.class,
+					new FragmentNavigationHandler(FragmentPassingDataDemo.class, R.id.fragment_container));
+		manager.add(DataDialogViewModel.class,
+					new DialogFragmentNavigationHandler(FragmentDataDialog.class, true));
+
 
 		manager.navigateTo( HomeViewModel.class );
 	}
