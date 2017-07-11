@@ -10,6 +10,8 @@ import android.support.annotation.LayoutRes;
 import java.util.Collection;
 import java.util.List;
 
+
+@Deprecated // Can be done by a Observable list.
 public abstract class MvvmListViewModel<T> extends MvvmViewModel {
     public void onResult(int requestCode, int resultCode, Bundle args) {
     }
