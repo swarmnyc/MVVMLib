@@ -29,6 +29,8 @@ public interface NavigationManager {
 
     <T extends MvvmViewModel> void dismiss(final Class<T> viewModelClass);
 
+    <T extends MvvmViewModel> void dismiss(final Class<T> viewModelClass, Bundle args);
+
     void navigateBack();
 
     void closeActivity(Integer result, Bundle args);
