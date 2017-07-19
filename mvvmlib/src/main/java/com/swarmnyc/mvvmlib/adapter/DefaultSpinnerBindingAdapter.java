@@ -55,6 +55,9 @@ public class DefaultSpinnerBindingAdapter extends BaseBindingAdapter implements 
 
 		vdb = (ViewDataBinding) v.getTag();
 		vdb.setVariable( BR.viewmodel, getItem( position ) );
+		// Bindings cannot be delayed for a spinner as the size of the view determines the size of the spinner when using
+		// wrap content
+		vdb.executePendingBindings();
 
 		return v;
 	}
