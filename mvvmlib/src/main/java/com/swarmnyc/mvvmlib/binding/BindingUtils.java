@@ -304,7 +304,7 @@ public class BindingUtils
 		view.setAdapter( adapter );
 
 		// setup the initial selection
-		if (null != selectedItem)
+		if (selectedItem != null && observableList != null)
 		{
 			view.setSelection( observableList.indexOf( selectedItem.get() ) );
 
