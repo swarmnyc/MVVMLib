@@ -29,6 +29,11 @@ public class HomeViewModel extends MvvmViewModel
 		navigateTo( SimpleListViewModel.class );
 	}
 
+	public void navToSimpleGrid()
+	{
+		navigateTo( SimpleGridViewModel.class );
+	}
+
 	public void navToMultiItemList()
 	{
 		navigateTo( MultiItemListViewModel.class );

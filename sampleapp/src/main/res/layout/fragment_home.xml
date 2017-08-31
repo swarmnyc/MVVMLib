@@ -43,6 +43,12 @@
 			android:onClick="@{()-> viewmodel.navToSimpleList()}"
 			/>
 
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Recycle View Grid Demo"
+			android:onClick="@{()-> viewmodel.navToSimpleGrid()}"
+			/>
 
 		<Button
 			android:layout_width="match_parent"

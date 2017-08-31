@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 
-version = '0.7.6' // Maven Property
+version = '0.7.7' // Maven Property
 group = 'org.swarmnyc.mvvmlib'
 ext {
     bintrayPackageName = "MVVMLib"
@@ -45,3 +45,5 @@ dependencies {
 }
 
 apply from: "https://s3.amazonaws.com/swarm-dev/swarm-deploy.gradle"
+
+//Note to install a local version for testing run ../gradlew install
