@@ -1,29 +1,27 @@
 package com.swarmnyc.mvvmlib.adapter;
 
 import android.content.Context;
-import android.os.Parcelable;
+import android.databinding.ObservableList;
 import android.support.annotation.LayoutRes;
-import com.swarmnyc.mvvmlib.MvvmListViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Supports binding multiple view model types for a Recycle View Adapter
  */
-public class MultiViewDataBindingAdapter extends BaseDataBindingAdapter
+public class MultiViewDataBindingAdapter extends BaseRecycleViewBindingAdapter
 {
-	private final List<Class>         viewModelTypes     = new ArrayList<>();
-	private  Map<Class, Integer> m_viewModelLayoutMap;
+	private final List<Class> viewModelTypes = new ArrayList<>();
+	private Map<Class, Integer> m_viewModelLayoutMap;
 
 
 	public MultiViewDataBindingAdapter(
-		final Context context, final MvvmListViewModel listViewModel, Map<Class, Integer> viewModelLayoutMap
+		final Context context, final ObservableList observableList, Map<Class, Integer> viewModelLayoutMap
 	)
 	{
-		super( context, listViewModel );
+		super( context, observableList );
 		m_viewModelLayoutMap = viewModelLayoutMap;
 
 		viewModelTypes.addAll( viewModelLayoutMap.keySet() );
@@ -32,14 +30,14 @@ public class MultiViewDataBindingAdapter extends BaseDataBindingAdapter
 	@Override
 	protected int getLayoutId( final int viewType )
 	{
-		return m_viewModelLayoutMap.get( viewModelTypes.get( viewType ));
+		return m_viewModelLayoutMap.get( viewModelTypes.get( viewType ) );
 	}
 
 
 	@Override
 	public int getItemViewType( int position )
 	{
-		Parcelable itemViewModel = this.getViewModels().get( position );
+		Object itemViewModel = this.getViewModels().get( position );
 		return viewModelTypes.indexOf( itemViewModel.getClass() );
 	}
 

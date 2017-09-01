@@ -22,8 +22,8 @@
 			android:text="@string/items"/>
 
 
-		<Spinner
-			android:layout_width="match_parent"
+		<android.support.v7.widget.AppCompatSpinner
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			mvvm:items="@{viewmodel.labels}"
 			mvvm:selectedItem="@{viewmodel.selectedLabel}"

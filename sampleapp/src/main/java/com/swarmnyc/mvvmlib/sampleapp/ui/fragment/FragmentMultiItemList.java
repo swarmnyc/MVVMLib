@@ -46,7 +46,7 @@ public class FragmentMultiItemList extends MvvmFragment<MultiItemListViewModel>
 		viewModelLayoutMap.put( ImageListItemViewModel.class, R.layout.view_image_list_item );
 
 		final MultiViewDataBindingAdapter adapter = new MultiViewDataBindingAdapter( getContext(),
-		                                                                             getViewModel(),
+		                                                                             getViewModel().getItems(),
 		                                                                             viewModelLayoutMap
 		);
 

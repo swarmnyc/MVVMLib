@@ -8,42 +8,32 @@ import com.swarmnyc.mvvmlib.MvvmViewModel;
  * Created by somya on 5/31/17.
  */
 
-public class SimpleListViewModel extends MvvmViewModel
+public class SimpleGridViewModel extends MvvmViewModel
 {
 	ObservableArrayList<MvvmViewModel> items = new ObservableArrayList<>();
 
-	public static final Creator<SimpleListViewModel> CREATOR = new Creator<SimpleListViewModel>()
+	public static final Creator<SimpleGridViewModel> CREATOR = new Creator<SimpleGridViewModel>()
 	{
 		@Override
-		public SimpleListViewModel createFromParcel( Parcel source )
+		public SimpleGridViewModel createFromParcel( Parcel source )
 		{
-			return new SimpleListViewModel( source );
+			return new SimpleGridViewModel( source );
 		}
 
 		@Override
-		public SimpleListViewModel[] newArray( int size )
+		public SimpleGridViewModel[] newArray( int size )
 		{
-			return new SimpleListViewModel[size];
+			return new SimpleGridViewModel[size];
 		}
 	};
 
-	public SimpleListViewModel()
+	public SimpleGridViewModel()
 	{
 		for ( int i = 0; i < 100; i++ )
 		{
 
 			final TextListItemViewModel itemViewModel = new TextListItemViewModel();
 			itemViewModel.m_title.set( "item: " + String.valueOf( i ) );
-			final int finalI = i;
-			itemViewModel.setOnSelectHandler( new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					getContext().getNotificationProvider().showNotification( "Selected Item "
-					                                                         + String.valueOf( finalI ) );
-				}
-			} );
 			items.add( itemViewModel );
 
 		}
@@ -54,7 +44,7 @@ public class SimpleListViewModel extends MvvmViewModel
 		return items;
 	}
 
-	protected SimpleListViewModel( Parcel in )
+	protected SimpleGridViewModel( Parcel in )
 	{
 	}
 

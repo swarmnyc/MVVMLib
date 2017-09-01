@@ -6,4 +6,6 @@
 	<string name="countries">Countries</string>
 	<string name="states">States</string>
 	<string name="items">Items</string>
+
+	<integer name="columns" >2</integer>
 </resources>

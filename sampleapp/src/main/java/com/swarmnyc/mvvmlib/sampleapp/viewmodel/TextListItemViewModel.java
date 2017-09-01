@@ -13,6 +13,14 @@ import com.swarmnyc.mvvmlib.binding.BindableString;
 public class TextListItemViewModel extends MvvmViewModel
 {
 	BindableString m_title = new BindableString();
+	Runnable onSelectHandler = null;
+
+	public void onSelected() {
+
+		if (onSelectHandler != null) {
+			onSelectHandler.run();
+		}
+	}
 
 	public static final Creator<TextListItemViewModel> CREATOR = new Creator<TextListItemViewModel>()
 	{
@@ -41,6 +49,11 @@ public class TextListItemViewModel extends MvvmViewModel
 	public BindableString getTitle()
 	{
 		return m_title;
+	}
+
+	public void setOnSelectHandler( final Runnable onSelectHandler )
+	{
+		this.onSelectHandler = onSelectHandler;
 	}
 
 	protected TextListItemViewModel( Parcel in) {
