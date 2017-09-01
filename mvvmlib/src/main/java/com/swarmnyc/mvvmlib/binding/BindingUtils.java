@@ -296,16 +296,19 @@ public class BindingUtils
 	)
 	{
 
-		DefaultSpinnerBindingAdapter adapter = new DefaultSpinnerBindingAdapter( view.getContext(),
+	
+		if (selectedItem != null && observableList != null)
+		{
+
+
+			DefaultSpinnerBindingAdapter adapter = new DefaultSpinnerBindingAdapter( view.getContext(),
 		                                                                         observableList,
 		                                                                         selectedResId,
 		                                                                         itemResId
-		);
-		view.setAdapter( adapter );
+			);
+			view.setAdapter( adapter );
 
-		// setup the initial selection
-		if (selectedItem != null && observableList != null)
-		{
+			// setup the initial selection
 			view.setSelection( observableList.indexOf( selectedItem.get() ) );
 
 
@@ -321,26 +324,28 @@ public class BindingUtils
 					}
 				}
 			} );
+
+					// Set up selection changes to update VM
+			view.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener()
+			{
+				@Override
+				public void onItemSelected(
+					final AdapterView<?> parent, final View view, final int position, final long id
+				)
+				{
+					selectedItem.set( observableList.get( position ) );
+				}
+
+				@Override
+				public void onNothingSelected( final AdapterView<?> parent )
+				{
+					selectedItem.set( null );
+				}
+			} );
 		}
 
 
-		// Set up selection changes to update VM
-		view.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(
-				final AdapterView<?> parent, final View view, final int position, final long id
-			)
-			{
-				selectedItem.set( observableList.get( position ) );
-			}
 
-			@Override
-			public void onNothingSelected( final AdapterView<?> parent )
-			{
-				selectedItem.set( null );
-			}
-		} );
 	}
 
 
