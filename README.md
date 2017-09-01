@@ -9,10 +9,29 @@ Getting Started
 
 Gradle:
 ```groovy
-compile 'com.swarmnyc:mvvmlib:0.4.20'
+compile 'com.swarmnyc:mvvmlib:0.7.9'
 ```
 
 MVVMLib requires at minimum Android Studio 1.3 and higher.
+
+Deployment
+---
+Update publish version in mvvmlib/build.gradle
+```
+version = '0.7.9' // Maven Property
+```
+
+Find the BINTRAY_API_KEY in [trello](https://trello.com/).
+```
+export BINTRAY_API_KEY=********************************
+./gradlew bintrayUpload
+
+```
+
+Note: to install a local version for testing run
+```
+./gradlew install
+```
 
 Learn more
 ---
